@@ -1,6 +1,7 @@
 import React from "react"
 import spotiLogo from "../images/Spotify_Logo_RGB_White.png"
 import NavList from "./NavList"
+import NavItem from "./NavItem"
 
 export default function Sidebar(){
     console.log("sidebar")
@@ -11,7 +12,7 @@ export default function Sidebar(){
             </a>
 
             <NavList>
-                <NavItem></NavItem>
+                <NavItem /> 
 
 
             </NavList>
