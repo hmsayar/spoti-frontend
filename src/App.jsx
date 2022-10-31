@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import MainContent from "./components/MainContent"
+import Main from "./components/Main"
 import Sidebar from "./components/Sidebar"
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <div className="App">
 
         <Sidebar />
-        <MainContent />
+        <Main />
         
 
         

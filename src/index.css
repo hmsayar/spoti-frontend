@@ -53,11 +53,22 @@ body{
   display: flex;
   flex-direction: column;
   user-select: none;
-  
+  border:solid white
+}
+
+.navlist{
+  margin:2rem;
+  border:solid red;
+}
+
+.my-main{
+  background: #121212;
+  border:solid orange;
+  padding: 3em;
 }
 
 .main-content{
-  background: #121212;
+  border: solid magenta;
 
 }
 
@@ -68,10 +79,10 @@ body{
 }
 
 .row-content{
-  border:solid pink;
-  margin:3rem;
+
+
   padding:2em;
-  max-width:70%;
+  
 }
 
 img{
