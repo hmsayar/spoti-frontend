@@ -23,7 +23,7 @@ a{
   border: solid yellow;
 }
 
-img{
+.spoti-logo{
   margin-top:20px;
 
 }
@@ -58,7 +58,17 @@ body{
 
 .navlist{
   margin:2rem;
+
   border:solid red;
+}
+
+.nav-item{
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin:1em;
+  border:solid yellow;
+
 }
 
 .my-main{
@@ -79,8 +89,6 @@ body{
 }
 
 .row-content{
-
-
   padding:2em;
   
 }
