@@ -7,7 +7,7 @@ import homeSelectedLogo from "./icons/home-filled.jpg"
 import searchLogo from "./icons/search-line.jpg"
 
 export default function Sidebar(){
-    console.log("sidebar")
+
     return(
         <div className="sidebar"> 
             <a href="/">
