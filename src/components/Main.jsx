@@ -9,10 +9,6 @@ export default function Main(){
             <Header />
             <MainContent />
 
-            
-
-
-            
         </div>
 
         

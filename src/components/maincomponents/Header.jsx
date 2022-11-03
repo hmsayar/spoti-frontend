@@ -20,10 +20,6 @@ export default function Header() {
 
             <div className="btn-container">
 
-                <a href="#" className="btn-sign-up"><b>Premium</b></a>
-                <a href="#" className="btn-sign-up"><b>Support</b></a>
-                <a href="#" className="btn-sign-up"><b>Download</b></a>
-                <h1 className="seperator">|</h1>
                 <a href="#" className="btn-sign-up"><b>Sign Up</b></a>
                 <a href="#" className="btn-log-in"><b>Log In</b></a>
 

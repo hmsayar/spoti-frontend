@@ -2,7 +2,7 @@ import React from "react"
 
 export default function NavList({children}){
     return(
-        <div className="navlist">
+        <div className="nav-list">
             {children}
         </div>
     )

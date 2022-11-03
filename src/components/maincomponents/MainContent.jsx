@@ -1,13 +1,13 @@
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import RowContent from "./RowContent"
 import axios from "axios"
 
-export default function MainContent(){
+export default function MainContent() {
 
-    const [data, setData] = useState({})
+    const [allData, setAllData] = useState([])
+    const [allPlaylists, setAllPlaylists] = useState([])
 
-    useEffect(()=> {
-
+    useEffect(() => {
         let source = axios.CancelToken.source()
         const locale = "SE"
         const language = "sv"
@@ -17,25 +17,69 @@ export default function MainContent(){
             const config = {
                 method: 'POST',
                 url: "http://localhost:4000/",
-                data: {endpoint},
+                data: { endpoint },
                 withCredentials: true,
                 cancelToken
             }
-            try{
+            try {
                 var result = await axios(config)
-                console.log(result)
-            }catch (error){
+                setAllData(result.data.categories.items)
+            } catch (error) {
                 if (axios.isCancel(error)) return
                 return error
             }
-            
-            setData(result.data)
+
         }
         makeRequest()
 
-    },[])
+    }, [])
 
-    console.log(data)
+
+
+
+
+
+
+    useEffect(() => {
+        allData.map((item) => {
+            let source = axios.CancelToken.source()
+            const {name,id} = item
+            const limit = 9
+            const endpoint = `https://api.spotify.com/v1/browse/categories/${id}/playlists?limit=${limit}`
+
+            const makeRequest = async () => {
+                const cancelToken = source.token
+                const config = {
+                    method: 'POST',
+                    url: "http://localhost:4000/",
+                    data: {endpoint},
+                    withCredentials: true,
+                    cancelToken
+                }
+                try{
+                    var result = await axios(config)
+                    const playlists = result.data.playlists.items
+                    setAllPlaylists(prev => {
+                       return (prev.length === allData.length ? prev : [...prev ,{name, id, playlists}])
+                    })
+                }catch (error){
+                    if (axios.isCancel(error)) return
+                    return error
+                }
+
+            }
+            makeRequest()
+        })
+
+    },[allData])
+    console.log(allPlaylists)
+
+    function displayCard(){
+        const obj = allPlaylists[0]
+        console.log(obj.name)
+    }
+
+
 
 
 
@@ -44,6 +88,7 @@ export default function MainContent(){
         <div className="main-content">
             <RowContent />
             <RowContent />
+            <button onClick={displayCard}>Click</button>
 
 
         </div>

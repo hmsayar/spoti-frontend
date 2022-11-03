@@ -3,10 +3,8 @@ import { Link} from "react-router-dom"
 
 export default function NavItem({ ext, logo, name }) {
     const linkStyle = {
-
         textDecoration: "none",
         color: 'white',
-
       };
     return (
         <div>
