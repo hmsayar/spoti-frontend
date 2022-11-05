@@ -8,8 +8,9 @@ export default function Header() {
         <div className="header">
 
             <div className="search-bar">
-                <a href="#">B</a>
-                <a href="#">F</a>
+
+                {/* todo navigation arrow */}
+
 
                 <Routes>
                     <Route path="/search" element={<SearchBar />} />
