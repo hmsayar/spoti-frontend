@@ -39,19 +39,15 @@ body{
 .App{
   height: 100vh;
   width: 100vw;
-  display: relative;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  grid-template-columns: auto 1fr;
+  display: flex;
 
 }
 
 .sidebar{
   background: #000000;
-  width: 300px;
+  width: 400px;
   display: flex;
   flex-direction: column;
-  user-select: none;
 }
 
 .nav-list{
@@ -64,32 +60,37 @@ body{
   display:flex;
   justify-content: space-evenly;
   align-items: center;
-  border:solid yellow;
+
+  padding:1rem;
 
 }
 
 .my-main{
   background: #121212;
   width: 100%;
-
+  overflow-x: hidden;
 
 }
 
 .main-content{
-  border: solid magenta;
-  margin-top:5rem;
+  margin-top:6rem;
+  margin-left: 2rem;
+}
+
+.row-title{
+  margin:1.5rem;
 }
 
 .header{
   background: #040404;
   position: fixed;
   padding:1em;
-  border: solid red;
   display:flex;
   justify-content:space-between;
   align-items: center;
-  width: 82.5%;
-
+  left:295px;
+  right:0;
+  z-index: 1;
 }
 
 .search-page{
@@ -163,7 +164,7 @@ body{
   border-radius: 10px;
   padding:10px;
   margin: 0 5px 0 5px;
-
+  position: relative;
 }
 
 
@@ -179,22 +180,156 @@ body{
 }
 
 .playlist-item>h3{
+  position: relative;
   margin-bottom: 1rem;
 }
 
 .playlist-item>p{
   color:#727272;
   margin-bottom: 1em;
+  width: 100%;
+  height: auto;
 }
 
 /* todo position this button */
-.play-button{
+/* .play-button{
+
+  position: absolute;
+	top: 130px;
+	right: 20px;
+  border:none;
   background-color:#a7da4e;
-  border-radius: 100%;
+  border-radius: 50%;
   padding:0.5rem;
   font-size: 1.5rem;
-}
+
+} */
 
 .play-button:hover{
   padding:0.7rem;
+}
+
+.playlist-content{
+  margin-top:6rem;
+  background-color: #5d3636;
+}
+
+.playlist-cover{
+  display:flex;
+  padding:2rem;
+
+}
+
+.cover-image{
+  width:15rem;
+  height:15rem;
+}
+
+.cover-texts{
+  padding:1rem;
+
+}
+
+.cover-type{
+  padding:1rem;
+}
+
+.cover-title{
+  padding:1rem;
+  font-size: 5vw;
+}
+
+.cover-desc{
+  padding-top:2rem;
+  padding-left:1rem;
+  font-size: 0.8rem;
+  color:#794b4b
+}
+
+.cover-flex{
+  display:flex;
+  padding:1rem;
+}
+
+.cover-owner{
+  text-decoration: none;
+  color:white;
+}
+
+.cover-owner:hover{
+  text-decoration: underline;
+}
+
+.track-list{
+  padding:2em;
+  background-color: #121212;
+}
+
+.tracks-title{
+  display:flex;
+  justify-content: space-between;
+  margin-top:1.5rem;
+
+  padding: 1.5rem;
+  margin-bottom:0.5rem;
+}
+
+.tracks-title-title{
+  display: flex;
+}
+
+.title-first{
+  margin-right: 2rem;
+}
+
+.track-item{
+  display:flex;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+
+  justify-content: space-between;
+}
+
+.track-item:hover{
+  background-color: #4f3737
+}
+
+.track-first{
+  display: flex;
+  align-items: center;
+}
+
+.track-no{
+  margin-right: 1.5rem;
+}
+
+.track-link{
+  text-decoration: none;
+  color:white;
+}
+
+.track-link:hover{
+  text-decoration: underline;
+}
+
+.song-artists{
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-link{
+  text-decoration: none;
+  color:#989898;
+}
+
+.artist-link:hover{
+  text-decoration: underline;
+  color:white
+}
+
+.duration{
+  color:#989898;
+}
+
+.track-img{
+  margin-right: 1rem;
 }

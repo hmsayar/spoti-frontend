@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import RowContent from "./RowContent"
 import axios from "axios"
+import getLocale from "../utils/locale"
 
 export default function Home() {
 
@@ -8,8 +9,7 @@ export default function Home() {
 
     useEffect(() => {
         let source = axios.CancelToken.source()
-        const locale = "SE"
-        const language = "sv"
+        const [language, locale] = getLocale()
         let endpoint = `https://api.spotify.com/v1/browse/categories?limit=6&country=${locale}&locale=${language}_${locale}`
         const makeRequest = async () => {
             const cancelToken = source.token
@@ -32,12 +32,17 @@ export default function Home() {
         makeRequest()
 
     }, [])
-    
+
     const rowElements = allData.map(item => {
-        return(
-            <RowContent key={item.id} data={item} />
+        return (
+
+            <div key={item.id}>
+                <h1 className="row-title">{item.name}</h1>
+                <RowContent data={item} />
+            </div>
         )
     })
+
 
 
     return (

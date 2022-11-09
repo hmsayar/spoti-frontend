@@ -3,7 +3,8 @@ import { Route, Routes } from "react-router-dom"
 import SearchBar from "./SearchBar"
 
 
-export default function Header() {
+export default function Header(props) {
+
     return (
         <div className="header">
 
@@ -13,7 +14,7 @@ export default function Header() {
 
 
                 <Routes>
-                    <Route path="/search" element={<SearchBar />} />
+                    <Route path="/search" element={<SearchBar {...props} />} />
                 </Routes>
             </div>
 
@@ -22,7 +23,7 @@ export default function Header() {
             <div className="btn-container">
 
                 <a href="#" className="btn-sign-up"><b>Sign Up</b></a>
-                <a href="#" className="btn-log-in"><b>Log In</b></a>
+                <a href="http://localhost:4000/login" className="btn-log-in"><b>Log In</b></a>
 
             </div>
 
