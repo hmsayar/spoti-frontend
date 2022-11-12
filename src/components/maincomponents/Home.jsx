@@ -6,6 +6,7 @@ import getLocale from "../utils/locale"
 export default function Home() {
 
     const [allData, setAllData] = useState([])
+    
 
     useEffect(() => {
         let source = axios.CancelToken.source()

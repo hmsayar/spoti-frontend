@@ -10,7 +10,7 @@ export default function NavItem({ ext, logo, name }) {
         <div>
             <Link to={ext} style={linkStyle}>
                 <div className="nav-item">
-                    <img src={logo} width={24} height={24} />
+                    {logo && <img className="nav-item-logo" src={logo} width={24} height={24} />}
                     <h4>{name}</h4>
                 </div>
             </Link>

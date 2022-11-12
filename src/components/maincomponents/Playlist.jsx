@@ -36,7 +36,7 @@ export default function Playlist() {
         }
         makeRequest()
 
-    }, [])
+    }, [playlistId])
 
 
 
@@ -79,6 +79,7 @@ export default function Playlist() {
                         <h3>Date</h3>
                         <h3>Duration</h3>
                     </div>
+
                     {trackElements}
                 </div>
                 </>

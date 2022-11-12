@@ -1,13 +1,54 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import ArtistsRow from "./searchpagecomponents/ArtistsRow"
 
-export default function SearchPage() {
+export default function SearchPage({ q }) {
 
+    const [searchData, setSearchData] = useState({})
+    const [loading, setLoading] = useState(true)
+
+
+
+    useEffect(() => {
+        if (q) {
+            let source = axios.CancelToken.source()
+            let endpoint = `https://api.spotify.com/v1/search?q=${q}&type=album,track,artist,playlist,show&limit=9`
+            const makeRequest = async () => {
+                const cancelToken = source.token
+                const config = {
+                    method: 'POST',
+                    url: "http://localhost:4000/",
+                    data: { endpoint },
+                    withCredentials: true,
+                    cancelToken
+                }
+                try {
+                    var result = await axios(config)
+                    setSearchData(result.data)
+                    setLoading(false)
+                } catch (error) {
+                    if (axios.isCancel(error)) return
+                    return error
+                }
+
+            }
+            makeRequest()
+        }
+    }, [q])
+
+    console.log(searchData)
 
 
     return (
         <div className="search-page">
-            <h1>Helloo</h1>
+            {loading ?
+                null :
+                <>
+                    <ArtistsRow data={searchData.artists} />
+                </>
+            }
+
+
         </div>
     )
 }

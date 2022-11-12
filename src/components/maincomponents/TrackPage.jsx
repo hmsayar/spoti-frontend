@@ -33,7 +33,6 @@ export default function TrackPage() {
         makeRequest()
 
     }, [])
-    console.log(trackData)
 
     return (
 

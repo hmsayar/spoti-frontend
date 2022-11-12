@@ -6,6 +6,7 @@ export default function RowContent({ data }) {
 
     const [row, setRow] = useState([])
 
+
     useEffect(() => {
         let source = axios.CancelToken.source()
         const { id } = data
@@ -32,10 +33,6 @@ export default function RowContent({ data }) {
         makeRequest()
 
     }, [])
-
-
-
-
 
     const rowItems = row.map(item => {
         return (

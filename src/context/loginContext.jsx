@@ -3,8 +3,8 @@ const LoginContext = React.createContext()
 
 function LoginContextProvider(props){
     const [login, setLogin] = useState(false)
-    function handleLogin(){
-        setLogin(prev => (!prev))
+    function handleLogin(bool){
+        setLogin(bool)
     }
     return(
         <LoginContext.Provider value={{login, handleLogin}}>

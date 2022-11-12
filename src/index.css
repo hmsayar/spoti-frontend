@@ -51,18 +51,25 @@ body{
 }
 
 .nav-list{
+  display: flex;
+  flex-direction: column;
+  
+
   margin:2rem;
-  padding:2rem;
 
 }
 
 .nav-item{
   display:flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
 
-  padding:1rem;
+  padding:1rem 0 1rem 0;
 
+}
+
+.nav-item-logo{
+  margin-right:2rem;
 }
 
 .my-main{
@@ -73,7 +80,7 @@ body{
 }
 
 .main-content{
-  margin-top:6rem;
+  margin-top:8rem;
   margin-left: 2rem;
 }
 
@@ -84,7 +91,7 @@ body{
 .header{
   background: #040404;
   position: fixed;
-  padding:1em;
+  padding:2em;
   display:flex;
   justify-content:space-between;
   align-items: center;
@@ -192,7 +199,7 @@ body{
 }
 
 /* todo position this button */
-/* .play-button{
+.play-button-home{
 
   position: absolute;
 	top: 130px;
@@ -203,10 +210,39 @@ body{
   padding:0.5rem;
   font-size: 1.5rem;
 
-} */
+}
 
-.play-button:hover{
+.play-button-playlist{
+  border: none;
+  background-color: #1ed760;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.play-button-track{
+  border:none;
+  font-size: 1rem;
+  color:white;
+  background-color:transparent;
+  border-radius: 10px;
+  margin-right: 15px;
+
+}
+
+.play-button-home:hover{
+  cursor:pointer;
   padding:0.7rem;
+}
+
+.play-button-playlist:hover{
+  cursor:pointer;
+  padding: 1.2rem;
+}
+
+.play-button-track:hover{
+  cursor:pointer;
+
 }
 
 .playlist-content{
@@ -266,10 +302,10 @@ body{
 }
 
 .tracks-title{
-  display:flex;
+  display:grid;
+  grid-template-columns: 27rem 25rem 27rem 20rem;
   justify-content: space-between;
   margin-top:1.5rem;
-
   padding: 1.5rem;
   margin-bottom:0.5rem;
 }
@@ -283,9 +319,9 @@ body{
 }
 
 .track-item{
-  display:flex;
+  display:grid;
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
-
+  grid-template-columns: 27rem 25rem 27rem 20rem;
   justify-content: space-between;
 }
 
@@ -299,7 +335,7 @@ body{
 }
 
 .track-no{
-  margin-right: 1.5rem;
+  margin-right: 25px;
 }
 
 .track-link{

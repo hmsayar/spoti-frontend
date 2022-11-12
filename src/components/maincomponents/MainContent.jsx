@@ -9,12 +9,11 @@ import Artist from "./Artist"
 
 export default function MainContent({query}) {
 
-    console.log(query)
 
     return (
         <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path={`/search/:query`} element={<SearchPage q={query} />} />
+            <Route path={`/search/`} element={<SearchPage q={query} />} />
             <Route path="/playlist/:playlistId" element={<Playlist />} />
             <Route path="/track/:trackId" element={<TrackPage />} />
             <Route path="/album/:albumId" element={<AlbumPage />} />
