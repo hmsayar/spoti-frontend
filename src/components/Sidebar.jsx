@@ -26,7 +26,7 @@ export default function Sidebar({playlists}){
                 {
                     login && 
                     <>
-                    <NavItem ext="/collection/tracks" logo={homeLogo} name="Favorites" />
+                    <NavItem ext="/collection/tracks" logo={homeLogo} name="Liked Songs" />
                     {playlists.map(playlist => {
                         return(
                             <NavItem key={playlist.id} ext={`/playlist/${playlist.id}`} logo={null} name={playlist.name}/>

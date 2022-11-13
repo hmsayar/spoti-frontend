@@ -8,7 +8,6 @@ export default function SearchBar(...props){
         // eslint-disable-next-line
     }, [])
 
-    console.log(props)
 
 
 

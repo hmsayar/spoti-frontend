@@ -369,3 +369,28 @@ body{
 .track-img{
   margin-right: 1rem;
 }
+
+
+.search-tracks-container{
+  margin:2rem;
+}
+
+.tracks-search-title{
+  margin-bottom: 1rem;;
+}
+
+.search-track-first:hover{
+  background-color: #4f3737;
+}
+
+.song-container{
+  display:flex;
+  justify-content: space-between;
+}
+.song-container:hover{
+  background-color: #4f3737;
+}
+
+.search-tracks-container{
+  width: 700px;
+}

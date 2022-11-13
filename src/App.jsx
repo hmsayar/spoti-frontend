@@ -16,6 +16,7 @@ function App() {
   const {user, handleUser} = useContext(UserContext)
 
   const [playlists,setPlaylists] =useState([])
+  const [likedSongs, setLikedSongs] = useState([])
 
 
   useEffect(()=> {
@@ -32,9 +33,11 @@ function App() {
       const makeRequests = async () => {
         const requestUserInfo = reqWithToken('https://api.spotify.com/v1/me', access_token, cancelSource) 
         const requestPlayList = reqWithToken(`https://api.spotify.com/v1/me/playlists`, access_token, cancelSource)
-        const [_userInfo, _playlists] = await Promise.all([requestUserInfo(), requestPlayList()])
+        const requestLikedSongs = reqWithToken(`https://api.spotify.com/v1/me/tracks`, access_token, cancelSource)
+        const [_userInfo, _playlists, _likedSongs] = await Promise.all([requestUserInfo(), requestPlayList(), requestLikedSongs()])
         handleUser(_userInfo.data)
         setPlaylists(_playlists.data.items)
+        setLikedSongs(_likedSongs.data.items)
 
       }
 
@@ -44,12 +47,14 @@ function App() {
 
   },[])
 
+  console.log(likedSongs)
+
 
   return (
     <div className="App">
 
         <Sidebar playlists= {playlists} />
-        <Main />
+        <Main liked={likedSongs} />
         
 
         

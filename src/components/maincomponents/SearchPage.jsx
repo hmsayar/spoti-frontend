@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import ArtistsRow from "./searchpagecomponents/ArtistsRow"
+import AlbumsRow from "./searchpagecomponents/AlbumsRow"
+import TracksRow from "./searchpagecomponents/TracksRow"
+
 
 export default function SearchPage({ q }) {
 
@@ -36,7 +39,6 @@ export default function SearchPage({ q }) {
         }
     }, [q])
 
-    console.log(searchData)
 
 
     return (
@@ -44,7 +46,9 @@ export default function SearchPage({ q }) {
             {loading ?
                 null :
                 <>
+                    <TracksRow data={searchData.tracks.items} />
                     <ArtistsRow data={searchData.artists} />
+                    <AlbumsRow data={searchData.albums} />
                 </>
             }
 
