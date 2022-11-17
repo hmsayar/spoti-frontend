@@ -2,6 +2,9 @@ import { useContext } from "react"
 import { Route, Routes } from "react-router-dom"
 import SearchBar from "./SearchBar"
 import { LoginContext } from "../../context/loginContext"
+import UserInfoButton from "./UserInfoButton"
+
+
 
 
 export default function Header(props) {
@@ -27,7 +30,7 @@ export default function Header(props) {
             <div className="btn-container">
 
                 {login ?
-                    <a href="/" className="btn-sign-up"><b> User Info</b></a> :
+                  <UserInfoButton userInf={props.userInf} /> :
                     <>
                         <a href="/" className="btn-sign-up"><b>Sign Up</b></a>
                         <a href="http://localhost:4000/login" className="btn-log-in"><b>Log In</b></a>

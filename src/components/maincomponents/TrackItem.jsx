@@ -2,6 +2,7 @@ import React from "react"
 import {Link} from "react-router-dom"
 import useHover from "../../hooks/useHover"
 import PlayButton from "./PlayButton"
+import emptyHeart from "../../images/empty-heart.png"
 
 export default function TrackItem(props){
 
@@ -40,7 +41,11 @@ export default function TrackItem(props){
                 <h5>{props.data.track.album.name}</h5>
             </Link>
             <h5>Date</h5>
-            <h5 className="duration">{Math.floor(props.data.track.duration_ms/60000)}:{((props.data.track.duration_ms % 60000) / 1000).toFixed(0)}</h5>
+            <div className="duration">
+
+                {/* <img className="heart-icon-track" src={emptyHeart} width={20} height={20} /> */}
+                <h5>{Math.floor(props.data.track.duration_ms / 60000)}:{((props.data.track.duration_ms % 60000) / 1000).toFixed(0)}</h5>
+            </div>
 
         </div>
     )

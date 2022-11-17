@@ -45,6 +45,7 @@ export default function Playlist() {
             <TrackItem key={item.id} data={item} index={i}/>
         )
     })
+    console.log(playlist)
 
 
 
@@ -53,8 +54,9 @@ export default function Playlist() {
             {loading ?
                 null :
                 <>
-                <div className="playlist-cover">
+                <div className="playlist-cover" style={{backgroundColor:playlist.primary_color}} >
                     <img className="cover-image" src={playlist.images[0].url}/>
+                    <div className="cover-overlay"></div>
                     <div className="cover-texts">
                         <h4 className="cover-type">{playlist.type.toUpperCase()}</h4>
                         <h1 className="cover-title">{playlist.name}</h1>
@@ -64,6 +66,7 @@ export default function Playlist() {
                             <h4 className="cover-info"> · {new Intl.NumberFormat().format(playlist.followers.total)} · {playlist.tracks.total} songs</h4>
                         </div>
                     </div>
+                    
                 </div>
                 
                 <div className="track-list">
@@ -79,7 +82,6 @@ export default function Playlist() {
                         <h3>Date</h3>
                         <h3>Duration</h3>
                     </div>
-
                     {trackElements}
                 </div>
                 </>

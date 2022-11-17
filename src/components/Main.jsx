@@ -35,7 +35,7 @@ export default function Main(props){
 
     return(
         <div className="my-main">
-            <Header query= {query} handleQ={handleQuery} resetQ={resetQuery}/>
+            <Header query= {query} handleQ={handleQuery} resetQ={resetQuery} userInf={props.userInf}/>
             <MainContent query={query} liked={props.liked} />
         </div>
 

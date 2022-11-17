@@ -23,7 +23,7 @@ export default function RowItem({ data }) {
                 onMouseEnter={handleHover}
                 onMouseLeave={handleHover}
             >
-                <img src={data.images[0].url} width={180} height={180} />
+                <img className="playlist-item-img" src={data.images[0].url} width={180} height={180} />
                 {isHovered && <PlayButton type="home" />}
                 <h3>{data.name}</h3>
                 <p>{data.description.length<50 ? data.description : data.description.substring(0,45) + "..."}</p>

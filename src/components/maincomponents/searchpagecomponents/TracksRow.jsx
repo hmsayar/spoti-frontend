@@ -2,12 +2,10 @@ import React from "react"
 import { Link } from "react-router-dom"
 import PlayButton from "../PlayButton"
 
-
 import useHover from "../../../hooks/useHover"
 
-export default function TracksRow({ data }) {
 
-    const [isHovered, handleHover] = useHover(false)
+export default function TracksRow({ data }) {
 
     const linkStyle = {
         textDecoration: "none",
@@ -19,19 +17,23 @@ export default function TracksRow({ data }) {
         <div
             className="search-tracks-container"
         >
-            <h1 className="tracks-search-title">Tracks</h1>
+            <h1 className="tracks-search-title">Songs</h1>
 
             {
                 data?.map(track => {
+                    const [isHovered, handleHover] = useHover(false)
                     return (
                         <div
                             key={track.id}
                             className="song-container"
+                            onMouseEnter={handleHover}
+                            onMouseLeave={handleHover}
                         >
                             <div className="track-first search-track-first">
-
-                                <PlayButton type="track" />
-                                <img className="track-img" src={track.album.images[0].url} width={30} height={30} />
+                                <div className="search-song-play-button">
+                                    {isHovered && <PlayButton type="track-search" />}
+                                    <img className="track-img" src={track.album.images[0].url} width={30} height={30} />
+                                </div>
                                 <div className="song-artist">
                                     <h4>{track.name}</h4>
                                     {track.artists.map((artist, i, arr) => {

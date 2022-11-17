@@ -8,7 +8,7 @@ import { TokenContextProvider } from "./context/tokenContext"
 import { UserContextProvider } from './context/userContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
     <Router>
       <LoginContextProvider>
         <TokenContextProvider>
@@ -18,5 +18,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </TokenContextProvider>
       </LoginContextProvider>
     </Router>
-  </React.StrictMode>
 )

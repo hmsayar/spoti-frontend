@@ -6,6 +6,7 @@ import homeLogo from "./icons/home-line.jpg"
 import homeSelectedLogo from "./icons/home-filled.jpg"
 import searchLogo from "./icons/search-line.jpg"
 import { LoginContext } from "../context/loginContext"
+import likedSongs from "../images/liked_songs.png"
 
 
 export default function Sidebar({playlists}){
@@ -26,7 +27,7 @@ export default function Sidebar({playlists}){
                 {
                     login && 
                     <>
-                    <NavItem ext="/collection/tracks" logo={homeLogo} name="Liked Songs" />
+                    <NavItem ext="/collection/tracks" logo={likedSongs} name="Liked Songs" />
                     {playlists.map(playlist => {
                         return(
                             <NavItem key={playlist.id} ext={`/playlist/${playlist.id}`} logo={null} name={playlist.name}/>
