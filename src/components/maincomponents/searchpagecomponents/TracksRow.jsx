@@ -3,14 +3,17 @@ import { Link } from "react-router-dom"
 import PlayButton from "../PlayButton"
 
 import useHover from "../../../hooks/useHover"
+import TrackElement from "./TrackElement"
 
 
 export default function TracksRow({ data }) {
 
-    const linkStyle = {
-        textDecoration: "none",
-        color: 'white',
-    };
+
+    const trackElements = data.map(track => {
+        return(
+            <TrackElement key={track.id} track={track} />
+        )
+    })
 
 
     return (
@@ -19,7 +22,9 @@ export default function TracksRow({ data }) {
         >
             <h1 className="tracks-search-title">Songs</h1>
 
-            {
+            {trackElements}
+
+            {/* {
                 data?.map(track => {
                     const [isHovered, handleHover] = useHover(false)
                     return (
@@ -31,7 +36,7 @@ export default function TracksRow({ data }) {
                         >
                             <div className="track-first search-track-first">
                                 <div className="search-song-play-button">
-                                    {isHovered && <PlayButton type="track-search" />}
+                                    {isHovered && <PlayButton type="track-search" item = {track.uri} />}
                                     <img className="track-img" src={track.album.images[0].url} width={30} height={30} />
                                 </div>
                                 <div className="song-artist">
@@ -53,7 +58,7 @@ export default function TracksRow({ data }) {
 
                     )
                 })
-            }
+            } */}
 
         </div>
     )

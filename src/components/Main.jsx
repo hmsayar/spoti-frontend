@@ -36,7 +36,12 @@ export default function Main(props){
     return(
         <div className="my-main">
             <Header query= {query} handleQ={handleQuery} resetQ={resetQuery} userInf={props.userInf}/>
-            <MainContent query={query} liked={props.liked} />
+            <MainContent 
+            myPlaylists={props.myPlaylists} 
+            likePlaylist={props.likePlaylist} 
+            unlikePlaylist={props.unlikePlaylist} 
+            query={query} 
+            />
         </div>
 
         

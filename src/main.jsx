@@ -6,16 +6,24 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { LoginContextProvider } from "./context/loginContext"
 import { TokenContextProvider } from "./context/tokenContext"
 import { UserContextProvider } from './context/userContext'
+import { PlayerContextProvider } from "./context/playerContext"
+import { LikedSongsContextProvider } from "./context/likedSongsContext"
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-    <Router>
-      <LoginContextProvider>
+  <Router>
+    <LoginContextProvider>
+      <PlayerContextProvider>
         <TokenContextProvider>
           <UserContextProvider>
-            <App />
+            <LikedSongsContextProvider>
+
+              <App />
+            </LikedSongsContextProvider>
           </UserContextProvider>
         </TokenContextProvider>
-      </LoginContextProvider>
-    </Router>
+      </PlayerContextProvider>
+    </LoginContextProvider>
+  </Router>
 )

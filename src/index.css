@@ -115,9 +115,10 @@ ul>li>button:hover {
 }
 
 .player-container {
-  background: red;
+  /* background: #181818; */
+  background: #282828;
   position: fixed;
-  padding: 2em;
+  padding: 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -125,6 +126,18 @@ ul>li>button:hover {
   right: 0;
   bottom: 0;
   z-index: 1;
+}
+
+.player-song-img-info{
+  display:flex;
+  align-items: center;
+  width:250px;
+}
+
+.player-song-img{
+  width:60px;
+  height:60px;
+  margin: 0 1rem 0 1rem;
 }
 
 
@@ -149,7 +162,7 @@ ul>li>button:hover {
   border-radius: 50px;
   width: 20rem;
   height: 2.5rem;
-  margin-left: 3rem;
+  margin-left: 10rem;
 }
 
 
@@ -218,6 +231,7 @@ ul>li>button:hover {
 }
 
 .playlist-item {
+  max-width: 12.5rem;
   background-color: #181818;
   border-radius: 10px;
   padding: 10px;
@@ -289,7 +303,7 @@ ul>li>button:hover {
 
 .play-button-playlist:hover {
   cursor: pointer;
-  padding: 1.2rem;
+  transform: scale(1.07);
 }
 
 .play-button-track:hover {
@@ -299,13 +313,14 @@ ul>li>button:hover {
 
 .playlist-content {
   color: white;
+  margin-bottom: 5rem;
 
 }
 
 .playlist-cover {
     color: #fff;
     position: relative;
-    padding: 8rem 2rem 2rem 2rem;;
+    padding: 8rem 2rem 2rem 2rem;
     display: flex;
     overflow: hidden;
     align-items: flex-end;
@@ -340,14 +355,15 @@ ul>li>button:hover {
 .cover-title {
   padding: 1rem;
   font-size: 5vw;
-
-
 }
+
+
 
 .cover-desc {
   padding-top: 2rem;
   padding-left: 1rem;
   font-size: 0.8rem;
+  color: #b1b3b3;
 }
 
 .cover-flex {
@@ -366,19 +382,19 @@ ul>li>button:hover {
 }
 
 
-
+/* 
 .track-list {
   padding: 2em;
   background-color: #121212;
-}
+  z-index: 1;
+} */
 
 .tracks-title {
   display: grid;
-  grid-template-columns: 27rem 25rem 27rem 20rem;
+  grid-template-columns: 27rem 25rem 26rem 22rem;
   justify-content: space-between;
   margin-top: 1.5rem;
-  padding: 1.5rem;
-  margin-bottom: 0.5rem;
+  padding: 1.5rem 1.5rem 0 1.5rem;
 }
 
 .tracks-title-title {
@@ -389,10 +405,36 @@ ul>li>button:hover {
   margin-right: 2rem;
 }
 
+.tracks-header{
+  padding:3rem;
+  display:flex;
+  position: relative;
+}
+
+.tracks-header-overlay{
+  height: 400px;
+  width: 100%;
+  position: absolute;
+  right:0;
+  top:0;
+  z-index: 0;
+  background: linear-gradient(rgba(0,0,0,.6),#121212);
+}
+
+.track-actions{
+  display:flex;
+}
+.track-actions-img{
+  margin-left: 1.5rem;
+}
+.playlist-tracks-actions{
+  z-index: 1;
+}
+
 .track-item {
   display: grid;
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
-  grid-template-columns: 27rem 25rem 27rem 20rem;
+  grid-template-columns: 27rem 25rem 25rem 2rem 20rem;
   justify-content: space-between;
 }
 
@@ -403,6 +445,7 @@ ul>li>button:hover {
 .track-first {
   display: flex;
   align-items: center;
+
 }
 
 .track-no {
@@ -436,11 +479,11 @@ ul>li>button:hover {
 .duration {
   display: flex;
   color: #989898;
+
 }
 
-.heart-icon-track {
-  margin-right: 1rem;
-}
+
+
 
 .track-img {
   margin-right: 1rem;
@@ -494,4 +537,40 @@ ul>li>button:hover {
 .artist-image {
   border-radius: 100px;
   ;
+}
+
+.control-buttons{
+  display:flex;
+  width: 100px;
+
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-spotify{
+  font-size:1.5rem;
+  padding:0.5rem;
+  border-radius: 100%;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.btn-spotify-resume{
+  font-size: 1rem;
+  font-weight:bold;
+  padding:1em;
+  border-radius: 100%;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.btn-spotify-resume:hover{
+  padding: 1.1em;
+}
+
+.btn-spotify:hover{
+  padding: 0.6rem;
+}
+
+.btn-spotify-nav{
+  width: 30px;
+  height: 30px;
 }

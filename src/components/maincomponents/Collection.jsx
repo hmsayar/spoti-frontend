@@ -1,18 +1,20 @@
 import {useContext} from "react"
-import likedSongs from "../../images/liked_songs.png"
+import likedSong from "../../images/liked_songs.png"
 import { Link } from "react-router-dom"
 import TrackItem from "./TrackItem"
 import PlayButton from "./PlayButton"
 
 import { UserContext } from "../../context/userContext"
+import { LikedSongsContext } from "../../context/likedSongsContext"
 
-export default function Collection({ liked }) {
+export default function Collection() {
     const {user, handleUser} = useContext(UserContext)
+    const { likedSongs, handleLikedSongs } = useContext(LikedSongsContext)
 
 
-    const trackElements = liked.map((item, i) => {
+    const trackElements = likedSongs.map((item, i) => {
         return (
-            <TrackItem key={item.id} data={item} index={i} />
+            <TrackItem key={item.track.id} data={item} index={i} />
         )
     })
 
@@ -20,14 +22,14 @@ export default function Collection({ liked }) {
     return (
         <div className="playlist-content">
             <div className="playlist-cover">
-                <img className="cover-image" src={likedSongs} />
+                <img className="cover-image" src={likedSong} />
                 <div className="cover-texts">
                     <h4 className="cover-type">Playlist</h4>
                     <h1 className="cover-title">Liked Songs</h1>
 
                     <div className="cover-flex">
                         <Link className="cover-owner" to="/">{user.display_name} </Link>
-                        <h4 className="cover-info"> · {liked.length} songs</h4>
+                        <h4 className="cover-info"> · {likedSongs.length} songs</h4>
                     </div>
                 </div>
             </div>

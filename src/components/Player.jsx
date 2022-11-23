@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { PlayerContext } from '../context/playerContext';
+import axios from 'axios';
+import putWithToken from './utils/putWithToken';
 
-const track = {
-    name: "",
-    album: {
-        images: [
-            { url: "" }
-        ]
-    },
-    artists: [
-        { name: "" }
-    ]
-}
+import nextIcon from "../images/skip-forward-fill.png"
+import prevIcon from "../images/skip-back-fill.png"
+
+
 
 function WebPlayback(props) {
 
-    const [is_paused, setPaused] = useState(false);
-    const [is_active, setActive] = useState(false);
-    const [player, setPlayer] = useState(undefined);
-    const [current_track, setTrack] = useState(track);
+    const {
+        player,
+        handlePlayer,
+        is_paused,
+        handleIsPaused,
+        is_active,
+        handleIsActive,
+        current_track,
+        handleCurrentTrack } = useContext(PlayerContext)
+
+    const [deviceId, setDeviceId] = useState("")
 
     useEffect(() => {
 
@@ -35,27 +39,28 @@ function WebPlayback(props) {
                 volume: 0.5
             });
 
-            setPlayer(player);
+            handlePlayer(player);
 
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
+                setTimeout(PlayThis(device_id), 1000)
             });
 
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
 
-            player.addListener('player_state_changed', ( state => {
+            player.addListener('player_state_changed', (state => {
 
                 if (!state) {
                     return;
                 }
 
-                setTrack(state.track_window.current_track);
-                setPaused(state.paused);
+                handleCurrentTrack(state.track_window.current_track);
+                handleIsPaused(state.paused);
 
-                player.getCurrentState().then( state => { 
-                    (!state)? setActive(false) : setActive(true) 
+                player.getCurrentState().then(state => {
+                    (!state) ? handleIsActive(false) : handleIsActive(true)
                 });
 
             }));
@@ -64,19 +69,47 @@ function WebPlayback(props) {
 
         };
 
-        return () => {
 
-			player.disconnect();
-		};
-        
+        return () => {
+            source.cancel();
+            player.disconnect();
+        };
+
     }, []);
 
-    if (!is_active) { 
+
+    const source = axios.CancelToken.source()
+
+
+    function PlayThis(device_id) {
+
+
+        var body = {
+            device_ids: [device_id]
+        }
+
+        const request = putWithToken("https://api.spotify.com/v1/me/player", props.token, source, body)
+        request().then(response => {
+            if (response.status === 204) {
+                console.log("yess")
+            }
+        })
+
+    }
+
+
+
+    if (!is_active) {
         return (
             <>
                 <div className="player-container">
                     <div className="main-wrapper">
-                        <b> Instance not active. Transfer your playback using your Spotify app </b>
+                        <b> Instance not active.</b>
+                    </div>
+                    <div className='player-right'>
+                        <button className='btn-activate' onClick={PlayThis} >
+                            Activate
+                        </button>
                     </div>
                 </div>
             </>)
@@ -84,27 +117,39 @@ function WebPlayback(props) {
         return (
             <>
                 <div className="player-container">
-                    <div className="main-wrapper">
 
-                        <img src={current_track.album.images[0].url} className="now-playing__cover" alt="" />
+                    <div className='player-song-img-info'>
 
-                        <div className="now-playing__side">
-                            <div className="now-playing__name">{current_track.name}</div>
-                            <div className="now-playing__artist">{current_track.artists[0].name}</div>
+                        <img className="player-song-img" src={current_track.album.images[0].url} alt="" />
 
-                            <button className="btn-spotify" onClick={() => { player.previousTrack() }} >
-                                &lt;&lt;
-                            </button>
+                        <div className='player-song-info'>
 
-                            <button className="btn-spotify" onClick={() => { player.togglePlay() }} >
-                                { is_paused ? "PLAY" : "PAUSE" }
-                            </button>
-
-                            <button className="btn-spotify" onClick={() => { player.nextTrack() }} >
-                                &gt;&gt;
-                            </button>
+                            <div>{current_track.name}</div>
+                            <div>{current_track.artists[0].name}</div>
                         </div>
                     </div>
+
+
+                    <div className="control-buttons">
+                        <img src={prevIcon} className="btn-spotify-nav" onClick={() => { player.previousTrack() }} />
+
+                        {is_paused ? 
+                        <button className="btn-spotify-resume" onClick={() => { player.togglePlay() }}> || </button> 
+                        :
+
+                            <button className="btn-spotify" onClick={() => { player.togglePlay() }} >
+                                &#9658;
+                            </button>
+                        }
+
+                        <img src={nextIcon} className="btn-spotify-nav" onClick={() => { player.nextTrack() }} />
+
+                    </div>
+
+                    <div className='player-right'>
+                        <h1>Hellooo</h1>
+                    </div>
+
                 </div>
             </>
         );

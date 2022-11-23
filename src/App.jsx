@@ -3,6 +3,7 @@ import getHashParams from './components/utils/getHashParams'
 import { LoginContext } from './context/loginContext'
 import { TokenContext } from './context/tokenContext'
 import { UserContext } from './context/userContext'
+import { LikedSongsContext } from './context/likedSongsContext'
 import Axios from "axios"
 import Main from "./components/Main"
 import Sidebar from "./components/Sidebar"
@@ -16,10 +17,10 @@ function App() {
   const { login, handleLogin } = useContext(LoginContext)
   const { token, handleToken } = useContext(TokenContext)
   const { user, handleUser } = useContext(UserContext)
+  const {likedSongs, handleLikedSongs} = useContext(LikedSongsContext)
 
 
   const [playlists, setPlaylists] = useState([])
-  const [likedSongs, setLikedSongs] = useState([])
   const [isVisible, setVisible] = useState(false)
 
   const [playerData, setPlayerData] = useState({})
@@ -28,7 +29,6 @@ function App() {
   useEffect(() => {
     let params = getHashParams();
     const { access_token, error } = params
-
     var cancelSource = Axios.CancelToken.source()
 
     if (access_token) {
@@ -50,7 +50,7 @@ function App() {
         ])
         handleUser(_userInfo.data)
         setPlaylists(_playlists.data.items)
-        setLikedSongs(_likedSongs.data.items)
+        handleLikedSongs(_likedSongs.data.items)
         setPlayerData(_playerData.data)
 
       }
@@ -65,13 +65,22 @@ function App() {
     setVisible(prev => !prev)
   }
 
+  function likePlaylist(pl){
+    setPlaylists(prev => [pl, ...prev])
+  }
+  function unlikePlaylist(pl){
+    setPlaylists(prev => prev.filter(item => item.id !==pl.id))
+  }
+
+  console.log(playlists)
+
 
 
   return (
     <div className="App">
 
       <Sidebar playlists={playlists} />
-      <Main liked={likedSongs} userInf={handleVisible} />
+      <Main myPlaylists={playlists} likePlaylist={likePlaylist} unlikePlaylist={unlikePlaylist} userInf={handleVisible} />
       {isVisible && <div className="user-info-visible">
         <ul>
           <li>
