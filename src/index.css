@@ -1,15 +1,15 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: CircularSp;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-
   color-scheme: light dark;
   color: white;
-  background-color: #242424;
+  background-color: #121212;
 
 
 }
+
 
 
 * {
@@ -24,36 +24,69 @@
 .spoti-logo {
   margin-top: 20px;
   margin-left: 30px;
-
+  margin-right: 50px;
 }
 
 body {
   font-size: 13px;
   line-height: 20px;
   letter-spacing: .015em;
-
   text-transform: none;
-  font-family: 'Rubik', 'Poppins', 'Nunito', 'Open Sans', 'Roboto', 'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic Pro', 'Meiryo', 'MS Gothic', sans-serif
+  font-family: 'Inter', sans-serif;
+  
+}
+
+.scrollbar-hidden{
+  overflow-y: hidden;
+}
+
+#id-locker{
+  overflow-x: hidden; 
+  width: 100vw;
+}
+
+hr{
+  margin: 8px 24px;
+  margin: 8px  8px ;
+  background-color: rgb(77, 67, 67);
+  border: none;
+  height: 1px;
+}
+
+h4{
+  font-weight:900;
+}
+.second-list{
+  font-weight:400;
 }
 
 .App {
-  height: 100vh;
+  height:100vh;
   width: 100vw;
   display: flex;
 }
 
 .sidebar {
+  position: relative;
   background: #000000;
-  width: 400px;
   display: flex;
   flex-direction: column;
 }
+
+.sidebar-list{
+  position: fixed;
+  max-height: 30em;
+  top:29em;
+  scrollbar-width: none;
+  overflow-y: auto;
+}
+
 
 .user-info-visible {
   background-color: #282828;
   position: absolute;
   padding: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   right: 45px;
   top: 70px;
   z-index: 2;
@@ -88,9 +121,13 @@ ul>li>button:hover {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  color:#b3afa9;
+  padding: 0.7rem 0 0.7rem 0;
+}
 
-  padding: 1rem 0 1rem 0;
-
+.nav-item:hover{
+  color: white;
+  transition: 500ms;
 }
 
 .nav-item-logo {
@@ -101,8 +138,8 @@ ul>li>button:hover {
   background: #121212;
   width: 100%;
   overflow-x: hidden;
-
 }
+
 
 .main-content {
   margin-top: 8rem;
@@ -115,8 +152,8 @@ ul>li>button:hover {
 }
 
 .player-container {
-  /* background: #181818; */
-  background: #282828;
+  background: #181818; 
+
   position: fixed;
   padding: 1em;
   display: flex;
@@ -131,18 +168,24 @@ ul>li>button:hover {
 .player-song-img-info{
   display:flex;
   align-items: center;
-  width:250px;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
+
+
 .player-song-img{
-  width:60px;
-  height:60px;
+  width:40px;
+  height:40px;
   margin: 0 1rem 0 1rem;
 }
 
 
 .header {
-  background: rgba(0, 0, 0, .5);
+  background: rgba(43, 40, 40, 0.5);
   position: fixed;
   padding: 1em;
   display: flex;
@@ -150,8 +193,11 @@ ul>li>button:hover {
   align-items: center;
   left: 220px;
   right: 0;
-  z-index: 2;
+  z-index: 10;
 }
+
+
+
 
 .search-page {
   margin-top: 8rem;
@@ -160,9 +206,20 @@ ul>li>button:hover {
 
 .search-style {
   border-radius: 50px;
-  width: 20rem;
+  border: 0px solid transparent;
+  width: 18rem;
   height: 2.5rem;
   margin-left: 10rem;
+  padding:17px;
+  padding-left: 45px;
+  background-image: url('./images/search-input.png');
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+
+
+.search-style:focus{
+  outline: none;
 }
 
 
@@ -181,6 +238,11 @@ ul>li>button:hover {
 .row-content {
   padding: 0.5em;
   display: flex;
+  /* justify-content: space-evenly;
+  flex-wrap: wrap;
+  height: 290px;
+  overflow: hidden;
+ */
 }
 
 
@@ -252,31 +314,38 @@ ul>li>button:hover {
 
 }
 
-.playlist-item>h3 {
-  position: relative;
-  margin-bottom: 1rem;
-}
 
-.playlist-item>p {
-  color: #727272;
-  margin-bottom: 1em;
-  width: 100%;
-  height: auto;
-}
 
 /* todo position this button */
 .play-button-home {
-
+  visibility: hidden;
+  animation: 300ms fadeIn;
+  animation-fill-mode: forwards;
   position: absolute;
-  top: 130px;
+  top: 150px;
   right: 20px;
   border: none;
   background-color: #a7da4e;
   border-radius: 50%;
   padding: 0.5rem;
   font-size: 1.5rem;
-
 }
+@keyframes fadeIn {
+  0%{
+    opacity: 0;
+    top: 143px;
+  }
+  50%{
+    opacity: 0.5;
+    top: 136px;
+  }
+  100%{
+    visibility: visible;
+    top: 130px;
+    opacity:1;
+  }
+}
+
 
 .play-button-playlist {
   border: none;
@@ -298,7 +367,7 @@ ul>li>button:hover {
 
 .play-button-home:hover {
   cursor: pointer;
-  padding: 0.7rem;
+  transform: scale(1.05);
 }
 
 .play-button-playlist:hover {
@@ -355,6 +424,7 @@ ul>li>button:hover {
 .cover-title {
   padding: 1rem;
   font-size: 5vw;
+  font-size: min(5vw, 70px);
 }
 
 
@@ -395,6 +465,8 @@ ul>li>button:hover {
   justify-content: space-between;
   margin-top: 1.5rem;
   padding: 1.5rem 1.5rem 0 1.5rem;
+  /* position: sticky;
+  top:60px; */
 }
 
 .tracks-title-title {
@@ -436,16 +508,22 @@ ul>li>button:hover {
   padding: 0.5rem 1.5rem 0.5rem 1.5rem;
   grid-template-columns: 27rem 25rem 25rem 2rem 20rem;
   justify-content: space-between;
+  align-items: center;
+
 }
 
 .track-item:hover {
-  background-color: #4f3737
+  background-color: hsla(0,0%,100%,.07);
 }
 
 .track-first {
   display: flex;
   align-items: center;
 
+}
+
+.track-first-play-no{
+  width: 3em;
 }
 
 .track-no {
@@ -469,6 +547,10 @@ ul>li>button:hover {
 .artist-link {
   text-decoration: none;
   color: #989898;
+}
+
+.track-date-link{
+  color:#989898;
 }
 
 .artist-link:hover {
@@ -498,9 +580,6 @@ ul>li>button:hover {
   margin-bottom: 1rem;
 }
 
-.search-track-first:hover {
-  background-color: #4f3737;
-}
 
 .song-container {
   display: flex;
@@ -508,8 +587,9 @@ ul>li>button:hover {
 }
 
 .song-container:hover {
-  background-color: #4f3737;
+  background-color: hsla(0,0%,100%,.07);
 }
+
 
 .search-tracks-container {
   width: 700px;
@@ -517,6 +597,7 @@ ul>li>button:hover {
 
 .search-song-play-button {
   display: flex;
+
 
 }
 
@@ -541,36 +622,73 @@ ul>li>button:hover {
 
 .control-buttons{
   display:flex;
-  width: 100px;
+  width: 120px;
 
   justify-content: space-between;
   align-items: center;
 }
 
 .btn-spotify{
-  font-size:1.5rem;
-  padding:0.5rem;
+  font-size:1.1rem;
+  padding:0.45rem;
   border-radius: 100%;
   margin: 0 0.5rem 0 0.5rem;
 }
 
+
+
 .btn-spotify-resume{
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight:bold;
-  padding:1em;
+  padding:0.8em 1em;
   border-radius: 100%;
   margin: 0 0.5rem 0 0.5rem;
 }
 
 .btn-spotify-resume:hover{
-  padding: 1.1em;
+  transform: scale(1.07)
 }
 
 .btn-spotify:hover{
-  padding: 0.6rem;
+  transform: scale(1.07)
 }
 
 .btn-spotify-nav{
   width: 30px;
   height: 30px;
+}
+
+.custom-context-menu-hidden{
+  display:none;
+}
+
+.custom-context-menu-visible{
+  display: block;
+}
+
+.context-menu-container{
+  display:flex;
+  flex-direction: column;
+}
+
+.context-menu-item{
+  color:white;
+  padding: 0.5em;
+}
+
+.context-menu-item-link{
+  text-decoration: none;
+}
+
+.context-menu-item-button{
+  background-color:#282828;
+  border:none;
+  display:flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.context-menu-item:hover{
+  background: #3e3e3e;
+  border-radius: 5px;
 }

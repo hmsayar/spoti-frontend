@@ -6,71 +6,67 @@ import fillHeart from "../../images/heart-fill.png"
 import { LikedSongsContext } from "../../context/likedSongsContext"
 import { useState, useContext, useEffect } from "react"
 import { LoginContext } from "../../context/loginContext"
-import putWithToken from "../utils/putWithToken"
-import deleteWithToken from "../utils/deleteWithToken"
-import axios from "axios"
-import { TokenContext } from "../../context/tokenContext"
+import { MenuContext } from "../../context/contextMenuContext"
+import getDuration from "../utils/duration"
+import dateFormatter from "../utils/dateFormat"
+
+
+const onContextStyle={
+    textDecoration:"underline"
+}
 
 
 export default function TrackItem(props) {
 
     const [isHovered, handleHover] = useHover(false)
-    const { likedSongs, likeItem, unlikeItem } = useContext(LikedSongsContext)
+    const { likedSongs, handleLikeUnlike } = useContext(LikedSongsContext)
     const { login } = useContext(LoginContext)
-    const { token } = useContext(TokenContext)
 
     const [isLiked, setIsLiked] = useState(likedSongs.some(liked => liked.track.id === props.data.track.id))
+    const [onContextLinkStyle, setOnContextLinkStyle] = useState(false)
 
-    function handleIsLiked() {
-        const source = axios.CancelToken.source()
-        let body
-        if (login) {
-            if (!isLiked) {
-                body = {
-                    ids: [props.data.track.id]
-                }
-                const request = putWithToken(`https://api.spotify.com/v1/me/tracks?ids=${props.data.track.id}`, token, source, body)
-                request().then(response => {
-                    if (response.status === 200) {
-                        setIsLiked(prev => !prev)
-                        likeItem(props.data.track)
-                    }
-                })
-            }else if(isLiked){
-                body = {
-                    ids: [props.data.track.id]
-                }
-                const request = deleteWithToken(`https://api.spotify.com/v1/me/tracks?ids=${props.data.track.id}`, token, source, body)
-                request().then(response => {
-                    if (response.status === 200) {
-                        setIsLiked(prev => !prev)
-                        unlikeItem(props.data.track)
-                    }
-                })
-            }
-        }
-    }
+    const { handleContextMenuData } = useContext(MenuContext);
 
 
+    useEffect(()=>{
+        setIsLiked(likedSongs.some(liked => liked.track.id === props.data.track.id))
+    },[likedSongs])
 
 
+    const handleContextMenu = (event) => {
+        event.preventDefault();
+        handleContextMenuData({
+            customData: props.data.track,
+            owner:props.data.added_by,
+            playlist_id:props.playlistId,
+            type: "track",
+            isVisible: true,
+            xPos:event.clientX,
+            yPos: event.clientY
+        });
+    };
 
     return (
         <div
             className="track-item"
             onMouseEnter={handleHover}
             onMouseLeave={handleHover}
+            onContextMenu={handleContextMenu}
         >
 
             <div className="track-first">
                 {isHovered ?
-                    <PlayButton type="track" item={props.data.track.uri} listUri={props.listUri} /> :
-                    <h4 className="track-no">{props.index + 1}</h4>
+                    <div className="track-first-play-no">
+                        <PlayButton type="track" item={props.data.track.uri} listUri={props.listUri} />
+                    </div> :
+                    <div className="track-first-play-no">
+                        <h4 className="track-no">{props.index + 1}</h4>
+                    </div>
                 }
-                <img className="track-img" src={props.data.track.album.images[0].url} width={50} height={50} />
+                <img className="track-img" src={props.data.track.album.images[0].url} width={40} height={40} />
                 <div className="song-artist">
-                    <Link className="track-link" to={`/track/${props.data.track.id}`}>
-                        <h4>{props.data.track.name}</h4>
+                    <Link style={onContextLinkStyle ? onContextStyle : null} className="track-link" to={`/track/${props.data.track.id}`}>
+                        <h4>{props.data.track.name.length < 45 ? props.data.track.name : (props.data.track.name.substring(0, 45) + "...")}</h4>
                     </Link>
                     {props.data.track.artists.map((artist, i, arr) => {
                         return (
@@ -86,7 +82,7 @@ export default function TrackItem(props) {
             <Link className="artist-link" to={`/album/${props.data.track.album.id}`}>
                 <h5>{props.data.track.album.name}</h5>
             </Link>
-            <h5>Date</h5>
+            <h5 className="track-date-link">{dateFormatter(props.data.added_at)}</h5>
             <div>
                 {(login && isLiked) ?
                     <img
@@ -94,7 +90,7 @@ export default function TrackItem(props) {
                         src={fillHeart}
                         width={20}
                         height={20}
-                        onClick={handleIsLiked}
+                        onClick={() => handleLikeUnlike(props.data.track.id)}
                     /> :
                     (isHovered && !isLiked) ?
                         <img
@@ -102,13 +98,13 @@ export default function TrackItem(props) {
                             src={emptyHeart}
                             width={20}
                             height={20}
-                            onClick={handleIsLiked}
+                            onClick={() => handleLikeUnlike(props.data.track.id)}
                         /> :
                         null}
 
                 {/* {isHovered && <img className="heart-icon-track" src={emptyHeart} width={20} height={20} />}  */}
             </div>
-            <h5>{Math.floor(props.data.track.duration_ms / 60000)}:{((props.data.track.duration_ms % 60000) / 1000).toFixed(0)}</h5>
+            <h5>{getDuration(props.data.track.duration_ms)}</h5>
 
 
         </div>

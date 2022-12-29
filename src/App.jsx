@@ -4,23 +4,26 @@ import { LoginContext } from './context/loginContext'
 import { TokenContext } from './context/tokenContext'
 import { UserContext } from './context/userContext'
 import { LikedSongsContext } from './context/likedSongsContext'
+import { PlaylistContext } from './context/playlistContext'
 import Axios from "axios"
 import Main from "./components/Main"
 import Sidebar from "./components/Sidebar"
 import Player from "./components/Player"
+import CustomContextMenu from './components/maincomponents/CustomContextMenu'
 
 
 import reqWithToken from './components/utils/reqWithToken'
+
 
 function App() {
 
   const { login, handleLogin } = useContext(LoginContext)
   const { token, handleToken } = useContext(TokenContext)
   const { user, handleUser } = useContext(UserContext)
-  const {likedSongs, handleLikedSongs} = useContext(LikedSongsContext)
+  const { likedSongs, handleLikedSongs } = useContext(LikedSongsContext)
+  const { myPlaylists, handleMyPlaylists } = useContext(PlaylistContext)
 
 
-  const [playlists, setPlaylists] = useState([])
   const [isVisible, setVisible] = useState(false)
 
   const [playerData, setPlayerData] = useState({})
@@ -39,17 +42,17 @@ function App() {
       const makeRequests = async () => {
         const requestUserInfo = reqWithToken('https://api.spotify.com/v1/me', access_token, cancelSource)
         const requestPlayList = reqWithToken(`https://api.spotify.com/v1/me/playlists`, access_token, cancelSource)
-        const requestLikedSongs = reqWithToken(`https://api.spotify.com/v1/me/tracks`, access_token, cancelSource)
         const requestPlayerInfo = reqWithToken('https://api.spotify.com/v1/me/player', access_token, cancelSource)
+        const requestLikedSongs = reqWithToken(`https://api.spotify.com/v1/me/tracks?offset=0&limit=50`, access_token, cancelSource)
 
         const [_userInfo, _playlists, _likedSongs, _playerData] = await Promise.all([
-          requestUserInfo(), 
-          requestPlayList(), 
+          requestUserInfo(),
+          requestPlayList(),
           requestLikedSongs(),
           requestPlayerInfo()
         ])
         handleUser(_userInfo.data)
-        setPlaylists(_playlists.data.items)
+        handleMyPlaylists(_playlists.data.items)
         handleLikedSongs(_likedSongs.data.items)
         setPlayerData(_playerData.data)
 
@@ -65,22 +68,21 @@ function App() {
     setVisible(prev => !prev)
   }
 
-  function likePlaylist(pl){
-    setPlaylists(prev => [pl, ...prev])
-  }
-  function unlikePlaylist(pl){
-    setPlaylists(prev => prev.filter(item => item.id !==pl.id))
-  }
-
-  console.log(playlists)
+  
 
 
+   function handleContextMenu(e) {
+     e.preventDefault()
+   }
 
   return (
-    <div className="App">
+    <div className="App" onContextMenu={handleContextMenu}>
 
-      <Sidebar playlists={playlists} />
-      <Main myPlaylists={playlists} likePlaylist={likePlaylist} unlikePlaylist={unlikePlaylist} userInf={handleVisible} />
+      <Sidebar />
+      <div id="id-locker">
+        
+      <Main userInf={handleVisible} />
+      </div>
       {isVisible && <div className="user-info-visible">
         <ul>
           <li>

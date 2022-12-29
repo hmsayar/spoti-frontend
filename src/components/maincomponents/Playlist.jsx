@@ -7,21 +7,19 @@ import TrackItem from "./TrackItem"
 import heartLine from "../../images/heart-line-playlist.png"
 import heartFill from "../../images/heart-fill-playlist.png"
 import { LoginContext } from "../../context/loginContext"
-import putWithToken from "../utils/putWithToken"
-import deleteWithToken from "../utils/deleteWithToken"
-import { TokenContext } from "../../context/tokenContext"
 import { UserContext } from "../../context/userContext"
+import { PlaylistContext } from "../../context/playlistContext"
 
 
-export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) {
+export default function Playlist({playlistUriHeader}) {
 
     const { playlistId } = useParams()
     const [playlist, setPlaylist] = useState({})
     const [loading, setLoading] = useState(true)
     const { login } = useContext(LoginContext)
-    const { token } = useContext(TokenContext)
     const { user } = useContext(UserContext)
     const [isLiked, setIsLiked] = useState(false)
+    const {myPlaylists, handleLikePlaylist} = useContext(PlaylistContext)
 
 
     useEffect(() => {
@@ -41,6 +39,7 @@ export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) 
                 const playlist = result.data
                 setPlaylist(playlist)
                 setLoading(false)
+                playlistUriHeader(playlist.uri)
 
             } catch (error) {
                 if (axios.isCancel(error)) return
@@ -51,6 +50,7 @@ export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) 
 
     }, [playlistId])
 
+
     useEffect(() => {
         if (login) {
 
@@ -59,57 +59,22 @@ export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) 
                 setIsLiked(bool)
             }
         }
-
-    }, [playlist])
-
-    console.log(playlist)
-
-
-    function handleLike() {
-
-        const source = axios.CancelToken.source()
-        let body
-        if (login) {
-            if (!isLiked) {
-                body = {
-                    public: false
-                }
-                const request = putWithToken(`https://api.spotify.com/v1/playlists/${playlist.id}/followers`, token, source, body)
-                request().then(response => {
-                    if (response.status === 200) {
-                        setIsLiked(prev => !prev)
-                        likePlaylist(playlist)
-                    }
-                })
-            } else if (isLiked) {
-                body = {}
-                const request = deleteWithToken(`https://api.spotify.com/v1/playlists/${playlist.id}/followers`, token, source, body)
-                request().then(response => {
-                    if (response.status === 200) {
-                        console.log(response)
-                        setIsLiked(prev => !prev)
-                        unlikePlaylist(playlist)
-                    }
-                })
-            }
-        }
-
-    }
-
-
+    }, [myPlaylists])
 
 
     const trackElements = playlist.tracks?.items.map((item, i) => {
         return (
-            <TrackItem key={item.id} data={item} index={i} listUri={playlist.uri} />
+            <TrackItem playlistId={playlist.id} key={item.id} data={item} index={i} listUri={playlist.uri} />
         )
     })
 
+
+
+
+
     if(playlist.tracks?.total===0){
         return(
-
                 <h1>Playlist Emptyy</h1>
-
         )
     }else{
 
@@ -127,7 +92,7 @@ export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) 
                                 <h2 className="cover-desc">{playlist.description}</h2>
                                 <div className="cover-flex">
                                     <Link className="cover-owner" to="/">{playlist.owner.display_name}</Link>
-                                    <h4 className="cover-info"> · {new Intl.NumberFormat().format(playlist.followers.total)} · {playlist.tracks.total} songs</h4>
+                                    <h4 className="cover-info"> · {new Intl.NumberFormat().format(playlist.followers.total)} likes · {playlist.tracks.total} songs</h4>
                                 </div>
                             </div>
     
@@ -145,7 +110,7 @@ export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) 
                                   { (user.id !== playlist.owner.display_name) && <img
                                         className="track-actions-img"
                                         src={isLiked ? heartFill : heartLine}
-                                        onClick={handleLike}
+                                        onClick={() => handleLikePlaylist(playlist.id)}
                                     />}
                                 </div>
                                 <div className="tracks-title" >
@@ -157,6 +122,7 @@ export default function Playlist({ myPlaylists, likePlaylist, unlikePlaylist }) 
                                     <h3>Date</h3>
                                     <h3>Duration</h3>
                                 </div>
+                                <hr></hr>
                             {trackElements}
                             </div>
                         </div>

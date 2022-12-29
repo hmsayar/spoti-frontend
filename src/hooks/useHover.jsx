@@ -6,6 +6,9 @@ export default function useHover(defaultOnValue=false){
     function handleHover(){
         setIsHoverd(prev => !prev)
     }
+    function trueHover(){
+        setIsHoverd(true)
+    }
 
-    return[isHovered, handleHover]
+    return[isHovered, handleHover, trueHover]
 }

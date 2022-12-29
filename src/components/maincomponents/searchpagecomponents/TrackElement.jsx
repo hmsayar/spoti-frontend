@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import useHover from "../../../hooks/useHover"
 import PlayButton from "../PlayButton"
+import getDuration from "../../utils/duration"
 
 export default function TrackElement({track}){
 
@@ -38,7 +39,7 @@ export default function TrackElement({track}){
         </div>
         <h4
             className="duration">
-            {Math.floor(track.duration_ms / 60000)}:{((track.duration_ms % 60000) / 1000).toFixed(0)}
+            {getDuration(track.duration_ms)}
         </h4>
     </div>
     )

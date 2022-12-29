@@ -6,24 +6,28 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { LoginContextProvider } from "./context/loginContext"
 import { TokenContextProvider } from "./context/tokenContext"
 import { UserContextProvider } from './context/userContext'
-import { PlayerContextProvider } from "./context/playerContext"
 import { LikedSongsContextProvider } from "./context/likedSongsContext"
+import { PlaylistContextProvider } from "./context/playlistContext"
+import { MenuContextProvider } from './context/contextMenuContext'
+import CustomContextMenu from './components/maincomponents/CustomContextMenu'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <Router>
     <LoginContextProvider>
-      <PlayerContextProvider>
         <TokenContextProvider>
           <UserContextProvider>
-            <LikedSongsContextProvider>
-
-              <App />
-            </LikedSongsContextProvider>
+            <PlaylistContextProvider>
+              <LikedSongsContextProvider>
+                <MenuContextProvider>
+                <App />
+                <CustomContextMenu />
+                </MenuContextProvider>
+              </LikedSongsContextProvider>
+            </PlaylistContextProvider>
           </UserContextProvider>
         </TokenContextProvider>
-      </PlayerContextProvider>
     </LoginContextProvider>
   </Router>
 )
