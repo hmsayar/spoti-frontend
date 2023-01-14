@@ -5,7 +5,6 @@ export default function SearchBar(...props){
 
     useEffect(() => {
         return () => props[0].resetQ()
-        // eslint-disable-next-line
     }, [])
 
 
@@ -13,7 +12,8 @@ export default function SearchBar(...props){
 
     return(
         <input 
-        type="text" 
+        type="text"
+        placeholder="What do you want to listen to?" 
         className="search-style"
         value={props[0].query}
         onChange={props[0].handleQ}

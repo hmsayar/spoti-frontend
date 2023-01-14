@@ -42,6 +42,7 @@ export default function RowContent({ data }) {
 
     return (
         <div className="row-content">
+            
             {rowItems}
 
         </div>

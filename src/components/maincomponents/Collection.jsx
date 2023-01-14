@@ -9,10 +9,11 @@ import { LikedSongsContext } from "../../context/likedSongsContext"
 import { TokenContext } from "../../context/tokenContext"
 import reqWithToken from "../utils/reqWithToken"
 import Axios from "axios"
+import duratioLogo from "../../images/time-line.png"
 
 
 export default function Collection() {
-    const { user, handleUser } = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const { likedSongs, handleLikedSongs } = useContext(LikedSongsContext)
     const { token } = useContext(TokenContext)
 
@@ -24,7 +25,6 @@ export default function Collection() {
             const makeRequests = async () => {
                 const requestLikedSongs = reqWithToken(`https://api.spotify.com/v1/me/tracks?offset=0&limit=50`, token, cancelSource)
                 const _likedSongs = await requestLikedSongs()
-                console.log(_likedSongs.data)
                 handleLikedSongs(_likedSongs.data.items)
 
             }
@@ -36,11 +36,11 @@ export default function Collection() {
 
     const trackElements = likedSongs.map((item, i) => {
         return (
-            <TrackItem key={item.track.id} data={{...item, added_by:user.id}} index={i} />
+            <TrackItem key={item.track.id} data={{ ...item, added_by: user.id }} index={i} />
         )
     })
 
-    function handleContextMenu(e){
+    function handleContextMenu(e) {
         e.preventDefault()
     }
 
@@ -64,15 +64,17 @@ export default function Collection() {
                 <div className="track-actions">
                     <PlayButton type="playlist" />
                 </div>
+
                 <div className="tracks-title" >
                     <div className="tracks-title-title">
-                        <h3 className="title-first">#</h3>
-                        <h3>Title</h3>
+                        <h3 style={{ color: "#a9a9aa" }} className="title-first">#</h3>
+                        <h3 style={{ color: "#a9a9aa" }}>Title</h3>
                     </div>
-                    <h3>Album</h3>
-                    <h3>Date</h3>
-                    <h3>Duration</h3>
+                    <h3 style={{ color: "#a9a9aa" }}>Album</h3>
+                    <h3 style={{ color: "#a9a9aa" }}>Date</h3>
+                    <img src={duratioLogo} />
                 </div>
+                <hr></hr>
                 {trackElements}
             </div>
         </div>

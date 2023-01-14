@@ -1,22 +1,37 @@
 import { useContext } from "react"
 import spotiLogo from "../images/Spotify_Logo_RGB_White.png"
-import NavList from "./sidebarcomponents/NavList"
-import NavItem from "./sidebarcomponents/NavItem"
-import searchLogoUnselected from "../images/search-line.png"
-import libraryLogo from "../images/book-3-line.png"
-import homeSelectedLogo from "../images/home-5-line-unhovered.png"
-import addBoxLogo from "../images/add-box-fill.png"
 import { LoginContext } from "../context/loginContext"
 import likedSongs from "../images/liked_songs.png"
-import { LikedSongsContext } from "../context/likedSongsContext"
 import { PlaylistContext } from "../context/playlistContext"
+import { useLocation } from 'react-router-dom'
+import NavItem from "./sidebarcomponents/NavItem"
+
+
+
+import searchLogoUnselected from "../images/search-line.png"
+import searchLogoSelected from "../images/search-fill.png"
+
+
+import libraryLogoUnselected from "../images/book-3-line.png"
+import libraryLogoSelected from "../images/book-3-fill.png"
+
+
+import homeLogoUnselected from "../images/home-5-line-unhovered.png"
+import homeLogoSelected from "../images/home-5-fill.png"
+
+import addBoxLogo from "../images/add-box-fill.png"
 
 
 export default function Sidebar() {
 
 
+    const location = useLocation()
+
     const { login } = useContext(LoginContext)
     const { myPlaylists } = useContext(PlaylistContext)
+
+
+
 
     return (
         <div className="sidebar">
@@ -25,21 +40,52 @@ export default function Sidebar() {
             </a>
 
             <div className="nav-list">
-                <NavItem ext="/" logo={homeSelectedLogo} name="Home" />
-                <NavItem ext="/search" logo={searchLogoUnselected} name="Search" />
-                <NavItem style={{marginBottom:"2em"}} ext={login ? "/collection/playlists" : "/"} logo={libraryLogo} name="Library" />
+                <NavItem
+                    ext="/"
+                    logo={location.pathname === "/" ? homeLogoSelected : homeLogoUnselected}
+                    name="Home"
+                    isSelected={location.pathname === "/"}
+                />
+                <NavItem
+                    ext="/search"
+                    logo={location.pathname === "/search" ? searchLogoSelected : searchLogoUnselected}
+                    name="Search"
+                    isSelected={location.pathname === "/search"}
+                />
+                <NavItem
+                    style={{ marginBottom: "2em" }}
+                    ext={login ? "/collection/playlists" : location.pathname}
+                    logo={location.pathname === "/collection/playlists" ? libraryLogoSelected : libraryLogoUnselected}
+                    name="Library"
+                    isSelected={location.pathname === "/collection/playlist"}
+                />
+                <NavItem
+                    ext="/"
+                    logo={addBoxLogo}
+                    name="Create Playlist"
+                />
+
+                <NavItem
+                    ext={login ? "/collection/tracks" : location.pathname}
+                    logo={likedSongs}
+                    name="Liked Songs" />
                 {
                     login &&
                     <>
-                        <NavItem ext="/" logo={addBoxLogo} name="Create Playlist" />
-                        <NavItem ext="/collection/tracks" logo={likedSongs} name="Liked Songs" />
                         <hr></hr>
 
                         <div className="sidebar-list">
 
                             {myPlaylists.map(playlist => {
                                 return (
-                                    <NavItem cssClass={"second-list"} key={playlist.id} ext={`/playlist/${playlist.id}`} logo={null} name={playlist.name} />
+                                    <NavItem
+                                        cssClass={"second-list"}
+                                        key={playlist.id}
+                                        ext={`/playlist/${playlist.id}`}
+                                        logo={null}
+                                        name={playlist.name}
+                                        isSelected={location.pathname === `/playlist/${playlist.id}`}
+                                    />
                                 )
                             })}
                         </div>

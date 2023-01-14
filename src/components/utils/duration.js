@@ -6,5 +6,3 @@ export default function getDuration(ms){
     }
     return `${minutes}:${seconds}`
 }
-
-getDuration(243297)

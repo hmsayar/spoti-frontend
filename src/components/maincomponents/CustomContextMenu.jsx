@@ -18,7 +18,10 @@ import axios from 'axios';
 export default function CustomContextMenu() {
   const [isLikedPlaylist, setIsLikedPlaylist] = useState(false)
   const [isLikedSong, setIsLikedSong] = useState(false)
+
+
   const [menuPos, setMenuPos] = useState({rightPos:false,leftPos:false,topPos:false,bottomPos:false})
+  const [menuSize, setMenuSize] = useState({menuHeight:0, menuWidth:0})
 
 
 
@@ -35,7 +38,7 @@ export default function CustomContextMenu() {
 
   const visibleStyle = {
     display: "block",
-    position: "absolute",
+    position: "fixed",
     backgroundColor: "#282828",
     padding: "0.6em",
     color: "white",
@@ -48,7 +51,7 @@ export default function CustomContextMenu() {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleMouseDown);
-    console.log("mounted")
+
 
     return () => {
       document.removeEventListener('mousedown', handleMouseDown);
@@ -90,6 +93,7 @@ export default function CustomContextMenu() {
     const screenH = window.innerHeight;
     const rootW = containerRef.current.offsetWidth;
     const rootH = containerRef.current.offsetHeight;
+    setMenuSize({menuHeight:rootH, menuWidth:rootW})
 
     const right = (screenW - contextMenuData.xPos) > rootW;
     const left = !right;
@@ -140,7 +144,7 @@ export default function CustomContextMenu() {
         const request = deleteWithToken(`https://api.spotify.com/v1/playlists/${contextMenuData.playlist_id}/tracks`, token, source, body)
         request().then(response => {
             if (response.status === 200) {
-                console.log("deleted" + contextMenuData.playlist_id)
+                console.log("deleted")
             }else{
                 console.log(response)
             }
@@ -172,7 +176,7 @@ export default function CustomContextMenu() {
               <button className='context-menu-item context-menu-item-button' onClick={handleAddToLibrary}>Add to Your Library</button>
             }
             <hr></hr>
-            <CustomMenuItem type="share" menuPos={menuPos} >
+            <CustomMenuItem type="share" menuPos={menuPos} menuSize={menuSize} >
               <span>Share</span> <span> &#9658;</span>
             </CustomMenuItem>
             <hr></hr>
@@ -200,11 +204,11 @@ export default function CustomContextMenu() {
                 null
               }
 
-              <CustomMenuItem type="add-playlist" menuPos={menuPos} >
+              <CustomMenuItem type="add-playlist" menuPos={menuPos} menuSize={menuSize} index={6} >
               <span>Add to Playlist</span> <span> &#9658;</span>
             </CustomMenuItem>
             <hr></hr>
-            <CustomMenuItem type="share" menuPos={menuPos}>
+            <CustomMenuItem type="share" menuPos={menuPos} menuSize={menuSize} index={7}>
               <span>Share</span> <span> &#9658;</span>
             </CustomMenuItem>
 

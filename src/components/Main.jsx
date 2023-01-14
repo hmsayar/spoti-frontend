@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react"
 import Header from "./maincomponents/Header"
 import MainContent from "./maincomponents/MainContent"
-import { useNavigate, useParams } from "react-router-dom"
 
-export default function Main(props) {
+export default function Main({userInf}) {
 
     const [query, setQuery] = useState("")
     const [playlistUriHeader, setPlaylistUriHeader] = useState("")
-    
 
-    const navigate = useNavigate();
 
     function handlePlaylistUriHeader(id){
         setPlaylistUriHeader(id)
@@ -23,26 +20,16 @@ export default function Main(props) {
         setQuery("")
     }
 
-    useEffect(() => {
-        if (query) {
-            const goToSearch = () =>
-                navigate({
-                    pathname: "/search/",
-                    search: query
-                })
 
-            goToSearch()
-        }
 
-    }, [query])
 
 
 
     return (
 
             <div className="my-main">
-
-                <Header query={query} handleQ={handleQuery} resetQ={resetQuery} userInf={props.userInf} playlistUri={playlistUriHeader} />
+                
+                <Header query={query} handleQ={handleQuery} resetQ={resetQuery} userInf={userInf} playlistUri={playlistUriHeader} />
                 <MainContent
                     query={query}
                     playlistUriHeader={handlePlaylistUriHeader}

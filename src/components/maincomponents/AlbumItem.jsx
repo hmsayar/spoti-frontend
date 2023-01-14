@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import getDuration from "../utils/duration"
 
 
 export default function AlbumItem(props) {
@@ -22,7 +23,7 @@ export default function AlbumItem(props) {
                 </div>
 
             </div>
-            <h5 className="duration">{Math.floor(props.data.duration_ms / 60000)}:{((props.data.duration_ms % 60000) / 1000).toFixed(0)}</h5>
+            <h5 className="duration">{getDuration(props.data.duration_ms)}</h5>
 
         </div>
     )

@@ -1,6 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
-
 import ArtistElement from "./ArtistElement"
 
 export default function ArtistsRow ({ data }) {
@@ -17,9 +15,9 @@ export default function ArtistsRow ({ data }) {
     
     return (
         <>
-            <h1>Artists</h1>
+            <h1 className="tracks-search-title" style={{marginBottom:"2rem", marginLeft:"1.5rem"}} >Artists</h1>
             <div 
-            className="row-content"
+            className="row-content" style={{marginBottom:"5rem"}}
             >
                 {artistElements}
             </div>

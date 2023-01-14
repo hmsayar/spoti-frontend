@@ -8,19 +8,8 @@ import { TokenContext } from "../../context/tokenContext"
 import axios from "axios"
 import putWithToken from "../utils/putWithToken"
 
-// const extMenuStyle = {
-//     display: "block",
-//     position: "absolute",
-//     backgroundColor: "#282828",
-//     padding: "1em",
-//     left: "160px",
-//     top: "80px",
-//     color: "white",
-//     borderRadius: "10px",
-//     zIndex: "999"
-// }
 
-export default function CustomMenuItem({ children, type, menuPos }) {
+export default function CustomMenuItem({ children, type, menuPos, menuSize, index }) {
     const [isHovered, handleHover] = useHover(false)
     const { contextMenuData, closeContextMenu } = useContext(MenuContext);
     const { myPlaylists } = useContext(PlaylistContext)
@@ -39,9 +28,9 @@ export default function CustomMenuItem({ children, type, menuPos }) {
         borderRadius: "5px",
         zIndex: "9999",
         maxHeight: "30em",
-        height:"250px",
+        height: "250px",
         overflowY: "auto",
-        border:"solid black"
+        border: "solid black"
     })
 
     useEffect(() => {
@@ -63,7 +52,6 @@ export default function CustomMenuItem({ children, type, menuPos }) {
             body = {
                 uris: [contextMenuData.customData.uri]
             }
-            console.log(body)
             const request = putWithToken(`https://api.spotify.com/v1/playlists/${id}/tracks?ids=${contextMenuData.customData.uri}`, token, source, body, "POST")
             request().then(response => {
                 if (response.status === 200) {
@@ -79,68 +67,36 @@ export default function CustomMenuItem({ children, type, menuPos }) {
     function handleExtension(e) {
         handleHover()
         const screenW = window.innerWidth;
-        const screenH = window.innerHeight;
-        const rootW = positionRef.current.offsetWidth; //151
-        const rootH = positionRef.current.offsetHeight; //33
+        const rootW = positionRef.current.offsetWidth; 
 
-        // console.log("rootW:"+rootW)
-        // console.log("rootH"+rootH)
-        // console.log("offsetX:" + e.nativeEvent.offsetX)
-        // console.log("offsetY:" + e.nativeEvent.offsetY)
-        // console.log("clientX:" + e.clientX)
-        // console.log("clientY:" + e.clientY)
-        // console.log(posConst)
 
-    let xPosition
-    let yPosition=""
 
-    if(menuPos.rightPos){
-        const right = (screenW - contextMenuData.xPos - rootW) > parseInt(extMenuStyle.width);
-        const left = !right;
-        if (right) {
-            xPosition = `${contextMenuData.xPos + rootW + 5}px`;
-          }
-        if(left){
-            xPosition = `${contextMenuData.xPos - parseInt(extMenuStyle.width) + 5}px`;
+        let xPosition
+
+        if (menuPos.rightPos) {
+            const right = (screenW - contextMenuData.xPos - rootW) > parseInt(extMenuStyle.width);
+            const left = !right;
+            if (right) {
+                xPosition = `${contextMenuData.xPos + rootW + 5}px`;
+            }
+            if (left) {
+                xPosition = `${contextMenuData.xPos - parseInt(extMenuStyle.width) + 5}px`;
+            }
         }
-    }
-    if(menuPos.leftPos){
-        xPosition = `${contextMenuData.xPos - parseInt(extMenuStyle.width)- rootW -20}px`;
-    }
-    if(menuPos.topPos){
-        const top = (screenH - contextMenuData.yPos - parseInt(extMenuStyle.height)) > parseInt(extMenuStyle.height)
-        const bottom = !top
-        if(bottom){
-            yPosition = `${contextMenuData.yPos - rootH -5}px`;
+        if (menuPos.leftPos) {
+            xPosition = `${contextMenuData.xPos - parseInt(extMenuStyle.width) - rootW - 20}px`;
         }
-
-    }
-    if(menuPos.bottomPos){
-        yPosition = `${contextMenuData.yPos - parseInt(extMenuStyle.height)}px`;
-    }
-
-    // if (right) {
-    //   xPosition = `${contextMenuData.xPos + rootW + 5}px`;
-    // }
-
-    // if (left) {
-    //   xPosition = `${contextMenuData.xPos - rootW - 5 - parseInt(extMenuStyle.width)}px`;
-    // }
-
-
-        // let xPosition = contextMenuData.xPos + rootW + 10
 
 
         if (type === "add-playlist") {
             setExtMenuStyle(prev => {
-                return ({ ...prev, left: xPosition, top:yPosition })
+                return ({ ...prev, left: xPosition, top: "auto" })
             })
         } else if (type === "share") {
             setExtMenuStyle(prev => {
-                return ({ ...prev, left: xPosition, top:yPosition, height:""})
+                return ({ ...prev, left: xPosition, top: "auto", height: "" })
             })
         }
-
 
     }
 
@@ -148,6 +104,8 @@ export default function CustomMenuItem({ children, type, menuPos }) {
 
 
     return (
+
+
 
         <div
             className="context-menu-item context-menu-item-button"
@@ -175,8 +133,10 @@ export default function CustomMenuItem({ children, type, menuPos }) {
                         )
 
                     })}
+
                 </div> : null}
         </div>
+
 
     )
 }

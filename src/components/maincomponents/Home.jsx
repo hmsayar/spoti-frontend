@@ -1,12 +1,19 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import RowContent from "./RowContent"
 import axios from "axios"
 import getLocale from "../utils/locale"
+import UserTopItems from "./UserTopItems"
+import { LoginContext } from "../../context/loginContext"
+import Loading from "./Loading"
+
 
 export default function Home() {
 
     const [allData, setAllData] = useState([])
-    
+    const { login } = useContext(LoginContext)
+    const [isLoading, setIsLoading] = useState(true)
+
+
     useEffect(() => {
         let source = axios.CancelToken.source()
         const [language, locale] = getLocale()
@@ -15,7 +22,7 @@ export default function Home() {
             const cancelToken = source.token
             const config = {
                 method: 'POST',
-                url: "http://localhost:4000/",
+                url: `${import.meta.env.VITE_APP_BACK_URI}`,
                 data: { endpoint },
                 withCredentials: true,
                 cancelToken
@@ -23,6 +30,7 @@ export default function Home() {
             try {
                 var result = await axios(config)
                 setAllData(result.data.categories.items)
+                 setIsLoading(false)
             } catch (error) {
                 if (axios.isCancel(error)) return
                 return error
@@ -47,7 +55,24 @@ export default function Home() {
 
     return (
         <div className="main-content">
-            {rowElements}
+            {
+                isLoading ?
+                    <Loading /> :
+                    <div className="home-main-content">
+
+                        <>
+                            {login ?
+                                <UserTopItems /> :
+                                null
+                            }
+
+
+                            {rowElements}
+
+                        </>
+                    </div>
+            }
+
         </div>
     )
 }

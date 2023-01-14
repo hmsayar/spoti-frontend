@@ -8,12 +8,6 @@ export default function TrackElement({track}){
 
     const [isHovered, handleHover] = useHover(false)
 
-    const linkStyle = {
-        textDecoration: "none",
-        color: 'white',
-    };
-
-
 
     return(
         <div

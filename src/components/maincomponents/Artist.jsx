@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import axios from "axios"
 
 export default function Artist(){
@@ -34,8 +34,6 @@ export default function Artist(){
         makeRequest()
 
     }, [])
-
-
 
 
 

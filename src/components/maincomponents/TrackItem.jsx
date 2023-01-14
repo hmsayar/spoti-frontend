@@ -11,9 +11,9 @@ import getDuration from "../utils/duration"
 import dateFormatter from "../utils/dateFormat"
 
 
-const onContextStyle={
-    textDecoration:"underline"
-}
+// const onContextStyle = {
+//     textDecoration: "underline"
+// }
 
 
 export default function TrackItem(props) {
@@ -23,25 +23,25 @@ export default function TrackItem(props) {
     const { login } = useContext(LoginContext)
 
     const [isLiked, setIsLiked] = useState(likedSongs.some(liked => liked.track.id === props.data.track.id))
-    const [onContextLinkStyle, setOnContextLinkStyle] = useState(false)
+    // const [onContextLinkStyle, setOnContextLinkStyle] = useState(false)
 
     const { handleContextMenuData } = useContext(MenuContext);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLiked(likedSongs.some(liked => liked.track.id === props.data.track.id))
-    },[likedSongs])
+    }, [likedSongs])
 
 
     const handleContextMenu = (event) => {
         event.preventDefault();
         handleContextMenuData({
             customData: props.data.track,
-            owner:props.data.added_by,
-            playlist_id:props.playlistId,
+            owner: props.data.added_by,
+            playlist_id: props.playlistId,
             type: "track",
             isVisible: true,
-            xPos:event.clientX,
+            xPos: event.clientX,
             yPos: event.clientY
         });
     };
@@ -65,7 +65,7 @@ export default function TrackItem(props) {
                 }
                 <img className="track-img" src={props.data.track.album.images[0].url} width={40} height={40} />
                 <div className="song-artist">
-                    <Link style={onContextLinkStyle ? onContextStyle : null} className="track-link" to={`/track/${props.data.track.id}`}>
+                    <Link className="track-link" to={`/track/${props.data.track.id}`}>
                         <h4>{props.data.track.name.length < 45 ? props.data.track.name : (props.data.track.name.substring(0, 45) + "...")}</h4>
                     </Link>
                     {props.data.track.artists.map((artist, i, arr) => {
@@ -83,28 +83,38 @@ export default function TrackItem(props) {
                 <h5>{props.data.track.album.name}</h5>
             </Link>
             <h5 className="track-date-link">{dateFormatter(props.data.added_at)}</h5>
-            <div>
+
+            <div style={{ display: "flex", alignItems:"center"}}>
                 {(login && isLiked) ?
-                    <img
-                        className="heart-icon-track"
-                        src={fillHeart}
-                        width={20}
-                        height={20}
-                        onClick={() => handleLikeUnlike(props.data.track.id)}
-                    /> :
-                    (isHovered && !isLiked) ?
+                    <div style={{ width: "3em" }}>
+
                         <img
+                            style={{ marginRight: "1rem" }}
                             className="heart-icon-track"
-                            src={emptyHeart}
+                            src={fillHeart}
                             width={20}
                             height={20}
                             onClick={() => handleLikeUnlike(props.data.track.id)}
-                        /> :
-                        null}
+                        />
+                    </div> :
+                    (isHovered && !isLiked) ?
+                        <div style={{ width: "3em" }}>
 
-                {/* {isHovered && <img className="heart-icon-track" src={emptyHeart} width={20} height={20} />}  */}
+
+                            <img
+                                style={{ marginRight: "1rem" }}
+                                className="heart-icon-track"
+                                src={emptyHeart}
+                                width={20}
+                                height={20}
+                                onClick={() => handleLikeUnlike(props.data.track.id)}
+                            />
+                        </div> :
+                        <div style={{ width: "3em" }}></div>}
+
+                        <h5>{getDuration(props.data.track.duration_ms)}</h5>
+
             </div>
-            <h5>{getDuration(props.data.track.duration_ms)}</h5>
 
 
         </div>

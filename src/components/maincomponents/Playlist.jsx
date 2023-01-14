@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useLayoutEffect } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
 import { Link } from "react-router-dom"
@@ -9,9 +9,11 @@ import heartFill from "../../images/heart-fill-playlist.png"
 import { LoginContext } from "../../context/loginContext"
 import { UserContext } from "../../context/userContext"
 import { PlaylistContext } from "../../context/playlistContext"
+import EmptyPlaylist from "./EmptyPlaylist"
+import duratioLogo from "../../images/time-line.png"
 
 
-export default function Playlist({playlistUriHeader}) {
+export default function Playlist({ playlistUriHeader }) {
 
     const { playlistId } = useParams()
     const [playlist, setPlaylist] = useState({})
@@ -19,7 +21,7 @@ export default function Playlist({playlistUriHeader}) {
     const { login } = useContext(LoginContext)
     const { user } = useContext(UserContext)
     const [isLiked, setIsLiked] = useState(false)
-    const {myPlaylists, handleLikePlaylist} = useContext(PlaylistContext)
+    const { myPlaylists, handleLikePlaylist } = useContext(PlaylistContext)
 
 
     useEffect(() => {
@@ -51,7 +53,7 @@ export default function Playlist({playlistUriHeader}) {
     }, [playlistId])
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (login) {
 
             if (Object.entries(playlist).length !== 0) {
@@ -59,7 +61,7 @@ export default function Playlist({playlistUriHeader}) {
                 setIsLiked(bool)
             }
         }
-    }, [myPlaylists])
+    }, [playlist, myPlaylists])
 
 
     const trackElements = playlist.tracks?.items.map((item, i) => {
@@ -72,11 +74,11 @@ export default function Playlist({playlistUriHeader}) {
 
 
 
-    if(playlist.tracks?.total===0){
-        return(
-                <h1>Playlist Emptyy</h1>
+    if (playlist.tracks?.total === 0) {
+        return (
+            <EmptyPlaylist playlist={playlist} />
         )
-    }else{
+    } else {
 
         return (
             <div className="playlist-content">
@@ -92,22 +94,21 @@ export default function Playlist({playlistUriHeader}) {
                                 <h2 className="cover-desc">{playlist.description}</h2>
                                 <div className="cover-flex">
                                     <Link className="cover-owner" to="/">{playlist.owner.display_name}</Link>
-                                    <h4 className="cover-info"> · {new Intl.NumberFormat().format(playlist.followers.total)} likes · {playlist.tracks.total} songs</h4>
+                                    <h4
+                                        className="cover-info">
+                                        · {new Intl.NumberFormat().format(playlist.followers.total)} likes · {playlist.tracks.total} songs
+                                    </h4>
                                 </div>
                             </div>
-    
-                        </div>
-                        <div>
-    
-    
+
                         </div>
                         <div className="tracks-header">
-    
+
                             <div className="tracks-header-overlay" style={{ backgroundColor: playlist.primary_color }} />
                             <div className="playlist-tracks-actions">
                                 <div className="track-actions">
                                     <PlayButton type="playlist" item={playlist.uri} />
-                                  { (user.id !== playlist.owner.display_name) && <img
+                                    {(user.id !== playlist.owner.display_name) && <img
                                         className="track-actions-img"
                                         src={isLiked ? heartFill : heartLine}
                                         onClick={() => handleLikePlaylist(playlist.id)}
@@ -115,22 +116,22 @@ export default function Playlist({playlistUriHeader}) {
                                 </div>
                                 <div className="tracks-title" >
                                     <div className="tracks-title-title">
-                                        <h3 className="title-first">#</h3>
-                                        <h3>Title</h3>
+                                        <h3 style={{color:"#a9a9aa"}} className="title-first">#</h3>
+                                        <h3 style={{color:"#a9a9aa"}}>Title</h3>
                                     </div>
-                                    <h3>Album</h3>
-                                    <h3>Date</h3>
-                                    <h3>Duration</h3>
+                                    <h3 style={{color:"#a9a9aa"}}>Album</h3>
+                                    <h3 style={{color:"#a9a9aa"}}>Date</h3>
+                                    <img src={duratioLogo} />
                                 </div>
                                 <hr></hr>
-                            {trackElements}
+                                {trackElements}
                             </div>
                         </div>
-    
+
                     </>
                 }
             </div>
-    
+
         )
     }
 

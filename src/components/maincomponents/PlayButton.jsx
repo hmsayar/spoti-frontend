@@ -35,9 +35,9 @@ export default function PlayButton({ type, item, listUri }) {
         const request = putWithToken("https://api.spotify.com/v1/me/player/play", token, source, body)
         request().then(response => {
             if (response.status === 202) {
-                console.log(response)
+                console.log("success")
             } else {
-                console.log(response)
+                console.log("error")
             }
         })
     }
@@ -47,6 +47,8 @@ export default function PlayButton({ type, item, listUri }) {
             className={`${type === "home" ? "play-button-home" :
                 type === "track" ? "play-button-track" :
                     type === "track-search" ? "play-button-track-search" :
+                    type==="top-item-play" ? "top-item-play-button":
+                    type==="liked-song-collection" ? "liked-song-collection-button":
                         "play-button-playlist"}`}
             onClick={PlayItem}
         >

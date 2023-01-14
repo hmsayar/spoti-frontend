@@ -51,8 +51,6 @@ export default function SearchPage({ q }) {
                     <AlbumsRow data={searchData.albums} />
                 </>
             }
-
-
         </div>
     )
 }

@@ -4,14 +4,19 @@ import deleteWithToken from "../components/utils/deleteWithToken"
 import reqWithToken from "../components/utils/reqWithToken"
 import { LoginContext } from "./loginContext"
 import { TokenContext } from "./tokenContext"
+import { UserContext } from "./userContext"
 import axios from "axios"
+
 const PlaylistContext = React.createContext()
 
 function PlaylistContextProvider(props) {
 
     const { login } = useContext(LoginContext)
     const { token } = useContext(TokenContext)
+    const { user } = useContext(UserContext)
+
     const [myPlaylists, setMyPlaylists] = useState([])
+
 
     function handleMyPlaylists(userPlaylists) {
         setMyPlaylists(prev => userPlaylists)
@@ -46,6 +51,27 @@ function PlaylistContextProvider(props) {
 
     }
 
+    function handleCreatePlaylist(){
+
+        const source = axios.CancelToken.source()
+        let body
+        if (login) {
+            body = {
+                name: `My Playlist #${myPlaylists.length}`
+            }
+            const request = putWithToken(`https://api.spotify.com/v1/users/${user.id}/playlists`, token, source, body, "POST")
+            request().then(response => {
+                if (response.status === 201) {
+                    requestPlaylists()
+                } else {
+                    console.log(response)
+                }
+            })
+            
+        }
+
+    }
+
     const requestPlaylists = async () => {
         const cancelSource = axios.CancelToken.source()
         const requestPlayList = reqWithToken(`https://api.spotify.com/v1/me/playlists`, token, cancelSource)
@@ -56,7 +82,7 @@ function PlaylistContextProvider(props) {
 
 
     return (
-        <PlaylistContext.Provider value={{ myPlaylists, handleMyPlaylists, handleLikePlaylist }}>
+        <PlaylistContext.Provider value={{ myPlaylists, handleMyPlaylists, handleLikePlaylist, handleCreatePlaylist }}>
             {props.children}
         </PlaylistContext.Provider>
 
