@@ -16,7 +16,7 @@ export default function Artist(){
             const cancelToken = source.token
             const config = {
                 method: 'POST',
-                url: "http://localhost:4000/",
+                url: `${import.meta.env.VITE_APP_BACK_URI}/logout`,
                 data: { endpoint },
                 withCredentials: true,
                 cancelToken
