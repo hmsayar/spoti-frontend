@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Footer from "./maincomponents/Footer"
 import Header from "./maincomponents/Header"
 import MainContent from "./maincomponents/MainContent"
 
@@ -34,6 +35,7 @@ export default function Main({userInf}) {
                     query={query}
                     playlistUriHeader={handlePlaylistUriHeader}
                 />
+                <Footer />
 
         </div>
 
