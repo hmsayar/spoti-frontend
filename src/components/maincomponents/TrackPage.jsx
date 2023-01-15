@@ -15,7 +15,7 @@ export default function TrackPage() {
             const cancelToken = source.token
             const config = {
                 method: 'POST',
-                url: `${import.meta.env.VITE_APP_BACK_URI}/logout`,
+                url: `${import.meta.env.VITE_APP_BACK_URI}`,
                 data: { endpoint },
                 withCredentials: true,
                 cancelToken
