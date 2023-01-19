@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { BrowserRouter as Router } from "react-router-dom"
+import { HashRouter } from "react-router-dom"
 import { LoginContextProvider } from "./context/loginContext"
 import { TokenContextProvider } from "./context/tokenContext"
 import { UserContextProvider } from './context/userContext'
@@ -14,7 +14,7 @@ import CustomContextMenu from './components/maincomponents/CustomContextMenu'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  <Router>
+  <HashRouter>
     <LoginContextProvider>
         <TokenContextProvider>
           <UserContextProvider>
@@ -29,5 +29,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           </UserContextProvider>
         </TokenContextProvider>
     </LoginContextProvider>
-  </Router>
+  </HashRouter>
 )
