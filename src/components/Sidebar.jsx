@@ -6,6 +6,8 @@ import { PlaylistContext } from "../context/playlistContext"
 import { useLocation } from 'react-router-dom'
 import NavItem from "./sidebarcomponents/NavItem"
 
+import { MenuContext } from "../context/contextMenuContext"
+
 
 
 import searchLogoUnselected from "../images/search-line.png"
@@ -25,12 +27,27 @@ import addBoxLogo from "../images/add-box-fill.png"
 export default function Sidebar() {
 
 
+
     const location = useLocation()
 
     const { login } = useContext(LoginContext)
     const { myPlaylists } = useContext(PlaylistContext)
+    
+    const { handleContextMenuData } = useContext(MenuContext);
 
 
+    function handleContextMenu(playlist,e){
+        e.preventDefault()
+        handleContextMenuData({
+            customData: playlist,
+            owner: playlist.owner.display_name,
+            playlist_id: playlist.id,
+            type: "my-playlist",
+            isVisible: true,
+            xPos: e.clientX,
+            yPos: e.clientY
+        });
+    }
 
 
     return (
@@ -79,6 +96,7 @@ export default function Sidebar() {
                             {myPlaylists.map(playlist => {
                                 return (
                                     <NavItem
+                                        contextMenu={(e)=>handleContextMenu(playlist,e)}
                                         cssClass={"second-list"}
                                         key={playlist.id}
                                         ext={`/playlist/${playlist.id}`}

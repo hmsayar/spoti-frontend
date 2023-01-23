@@ -22,7 +22,7 @@ function PlaylistContextProvider(props) {
         setMyPlaylists(prev => userPlaylists)
     }
 
-    function handleLikePlaylist(id){
+    function handleLikePlaylist(id) {
 
         let bool = myPlaylists.some(item => item.id === id)
         const source = axios.CancelToken.source()
@@ -51,7 +51,7 @@ function PlaylistContextProvider(props) {
 
     }
 
-    function handleCreatePlaylist(){
+    function handleCreatePlaylist() {
 
         const source = axios.CancelToken.source()
         let body
@@ -67,10 +67,10 @@ function PlaylistContextProvider(props) {
                     console.log(response)
                 }
             })
-            
-        }
 
+        }
     }
+
 
     const requestPlaylists = async () => {
         const cancelSource = axios.CancelToken.source()

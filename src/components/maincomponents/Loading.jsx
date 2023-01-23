@@ -21,16 +21,19 @@ export default function Loading() {
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
-            </div>
-            <LoadingText textWidth="20%" textHeight="25px" />
-            <div className="row-content">
-                <LoadingPlaylistItem />
-                <LoadingPlaylistItem />
-                <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
             </div>
             <LoadingText textWidth="20%" textHeight="25px" />
             <div className="row-content">
+                <LoadingPlaylistItem />
+                <LoadingPlaylistItem />
+                <LoadingPlaylistItem />
+                <LoadingPlaylistItem />
+                <LoadingPlaylistItem />
+            </div>
+            <LoadingText textWidth="20%" textHeight="25px" />
+            <div className="row-content">
+                <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { PlaylistContext } from "../../context/playlistContext";
 
 
-export default function NavItem({ ext, logo, name, cssClass,style, isSelected }) {
+export default function NavItem({ ext, logo, name, cssClass,style, isSelected, contextMenu }) {
 
     const { handleCreatePlaylist } = useContext(PlaylistContext)
     const linkStyle = {
@@ -19,7 +19,7 @@ export default function NavItem({ ext, logo, name, cssClass,style, isSelected })
 
 
     return (
-        <div style={style} className="nav-item-container" onClick={createPlaylist}>
+        <div onContextMenu={contextMenu} style={style} className="nav-item-container" onClick={createPlaylist}>
             <Link to={ext} style={linkStyle}>
                 <div className="nav-item">
                     {logo && <img className="nav-item-logo" src={logo} width={24} height={24} />}

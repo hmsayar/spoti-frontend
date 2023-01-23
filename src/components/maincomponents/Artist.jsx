@@ -33,8 +33,7 @@ export default function Artist(){
         }
         makeRequest()
 
-    }, [])
-
+    }, [artistId])
 
 
     return(

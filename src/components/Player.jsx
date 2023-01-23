@@ -2,21 +2,20 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import putWithToken from './utils/putWithToken';
+import getDuration from './utils/duration';
+import idFromUri from "./utils/idFromUri"
 
 
 
 function WebPlayback(props) {
-
-
     const [deviceId, setDeviceId] = useState("")
-
-
-
     const [player, setPlayer] = useState(null);
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
     const [current_track, setTrack] = useState({});
     const [presentVolume, setPresentVolume] = useState()
+    const [presentSongPosition, setPresentSongPosition] = useState()
+    const [trackPosition, setTrackPosition] = useState()
 
 
 
@@ -55,7 +54,9 @@ function WebPlayback(props) {
                 }
 
                 setTrack(state.track_window.current_track);
+                setTrackPosition(state.position)
                 setPaused(state.paused);
+                setPresentSongPosition(Math.floor((state.position / state.duration) * 100))
 
 
                 player.getCurrentState().then(state => {
@@ -89,7 +90,7 @@ function WebPlayback(props) {
         request().then(response => {
             if (response.status === 202) {
                 console.log("yess")
-            }else{
+            } else {
                 console.log("err")
             }
         })
@@ -99,21 +100,32 @@ function WebPlayback(props) {
         let target = e.target
         let volume = target.value / 100
         player.setVolume(volume).then(() => {
-            setPresentVolume(target.value)
+            setPresentVolume(volume * 100)
         })
     }
 
-    function handleMute(){
-        if(presentVolume>0){
+    function handleMute() {
+        if (presentVolume > 0) {
             player.setVolume(0).then(() => {
                 setPresentVolume(0)
             })
-        }else if(presentVolume<1){
+        } else if (presentVolume < 1) {
             player.setVolume(0.5).then(() => {
                 setPresentVolume(50)
             })
         }
     }
+
+
+    function changePosition(e) {
+        let target = e.target
+        let position = target.value
+        player.seek((current_track.duration_ms / 100) * position).then(() => {
+            setPresentSongPosition(e.target.value);
+        });
+
+    }
+
 
 
 
@@ -148,30 +160,57 @@ function WebPlayback(props) {
                             {current_track.artists.map((artist, i, arr) => {
                                 return (
 
-                                    <Link key={artist.id} className="artist-link" to={`/artist/${artist.id}`}>
+                                    <Link key={artist.uri} className="artist-link" to={`/artist/${idFromUri(artist.uri)}`}>
                                         {i + 1 === arr.length ? artist.name : artist.name + ", "}
                                     </Link>
                                 )
                             })}
+                        </div>
+                    </div>
+                    <div className='player-middle'>
+                        <div className="control-buttons">
 
+                            <svg className="btn-spotify-nav" onClick={() => { player.previousTrack() }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path className='player-nav' d="M8 11.333l10.223-6.815a.5.5 0 0 1 .777.416v14.132a.5.5 0 0 1-.777.416L8 12.667V19a1 1 0 0 1-2 0V5a1 1 0 1 1 2 0v6.333z" fill="rgba(186,186,186,1)" />
+                            </svg>
+
+                            
+                            <div className='play-btn-container'>
+                                {!is_paused ?
+                                    <svg className='toggle-resume' onClick={() => { player.togglePlay() }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM9 9v6h2V9H9zm4 0v6h2V9h-2z" fill="rgba(255,255,255,1)" />
+                                    </svg>
+                                    :
+                                    <svg className="toggle-pause" onClick={() => { player.togglePlay() }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zM10.622 8.415a.4.4 0 0 0-.622.332v6.506a.4.4 0 0 0 .622.332l4.879-3.252a.4.4 0 0 0 0-.666l-4.88-3.252z" fill="rgba(255,255,255,1)" />
+                                    </svg>
+                                }
+                            </div>
+                            <svg className="btn-spotify-nav" onClick={() => { player.nextTrack() }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path className='player-nav' d="M16 12.667L5.777 19.482A.5.5 0 0 1 5 19.066V4.934a.5.5 0 0 1 .777-.416L16 11.333V5a1 1 0 0 1 2 0v14a1 1 0 0 1-2 0v-6.333z" fill="rgba(186,186,186,1)" />
+                            </svg>
+                        </div>
+                        <div className='progress-bar-container'>
+                            <div className='player-duration'>{getDuration(trackPosition)}</div>
+                            <div className='progress-bar'>
+                                <input
+                                    id="song-input-bar"
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={presentSongPosition}
+                                    onInput={(e) => changePosition(e)}
+                                    style={{ backgroundSize: `${presentSongPosition}% 100%` }}
+                                />
+                            </div>
+                            <div className='player-duration'>{getDuration(current_track.duration_ms)}</div>
                         </div>
                     </div>
 
-                    <div className="control-buttons">
-                        <img className="btn-spotify-nav btn-spotify-nav-back" onClick={() => { player.previousTrack() }} />
-                        <div className='play-btn-container'>
-
-                            {!is_paused ?
-                                <button className="btn-spotify-resume" onClick={() => { player.togglePlay() }}> || </button>
-                                :
-                                <button className="btn-spotify" onClick={() => { player.togglePlay() }} >
-                                    &#9658;
-                                </button>
-                            }
-                        </div>
-
-                        <img className="btn-spotify-nav btn-spotify-nav-forward" onClick={() => { player.nextTrack() }} />
-                    </div>
 
 
                     <div className='player-right'>
@@ -182,7 +221,7 @@ function WebPlayback(props) {
                                     <path fill="none" d="M0 0h24v24H0z" />
                                     <path className='volume-icon' d="M10 7.22L6.603 10H3v4h3.603L10 16.78V7.22zM5.889 16H2a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.889l5.294-4.332a.5.5 0 0 1 .817.387v15.89a.5.5 0 0 1-.817.387L5.89 16zm14.525-4l3.536 3.536-1.414 1.414L19 13.414l-3.536 3.536-1.414-1.414L17.586 12 14.05 8.464l1.414-1.414L19 10.586l3.536-3.536 1.414 1.414L20.414 12z" fill="rgba(120,120,120,1)" />
                                 </svg> :
-                                presentVolume>0 && presentVolume < 51 ?
+                                presentVolume > 0 && presentVolume < 51 ?
                                     <svg onClick={handleMute} className='a' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                                         <path fill="none" d="M0 0h24v24H0z" />
                                         <path className='volume-icon' d="M13 7.22L9.603 10H6v4h3.603L13 16.78V7.22zM8.889 16H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h3.889l5.294-4.332a.5.5 0 0 1 .817.387v15.89a.5.5 0 0 1-.817.387L8.89 16zm9.974.591l-1.422-1.422A3.993 3.993 0 0 0 19 12c0-1.43-.75-2.685-1.88-3.392l1.439-1.439A5.991 5.991 0 0 1 21 12c0 1.842-.83 3.49-2.137 4.591z" fill="rgba(120,120,120,1)" />
@@ -199,6 +238,7 @@ function WebPlayback(props) {
                             type="range"
                             min="0"
                             max="100"
+                            value={presentVolume}
                             onInput={(e) => changeVolume(e)}
                             style={{ backgroundSize: `${presentVolume}% 100%` }}
                         />

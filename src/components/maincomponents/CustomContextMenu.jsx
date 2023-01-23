@@ -20,8 +20,8 @@ export default function CustomContextMenu() {
   const [isLikedSong, setIsLikedSong] = useState(false)
 
 
-  const [menuPos, setMenuPos] = useState({rightPos:false,leftPos:false,topPos:false,bottomPos:false})
-  const [menuSize, setMenuSize] = useState({menuHeight:0, menuWidth:0})
+  const [menuPos, setMenuPos] = useState({ rightPos: false, leftPos: false, topPos: false, bottomPos: false })
+  const [menuSize, setMenuSize] = useState({ menuHeight: 0, menuWidth: 0 })
 
 
 
@@ -88,12 +88,12 @@ export default function CustomContextMenu() {
       }
     }
 
-    
+
     const screenW = window.innerWidth;
     const screenH = window.innerHeight;
     const rootW = containerRef.current.offsetWidth;
     const rootH = containerRef.current.offsetHeight;
-    setMenuSize({menuHeight:rootH, menuWidth:rootW})
+    setMenuSize({ menuHeight: rootH, menuWidth: rootW })
 
     const right = (screenW - contextMenuData.xPos) > rootW;
     const left = !right;
@@ -115,7 +115,7 @@ export default function CustomContextMenu() {
     if (bottom) {
       containerRef.current.style.top = `${contextMenuData.yPos - rootH - 5}px`;
     }
-    setMenuPos({rightPos:right, leftPos:left, topPos:top, bottomPos:bottom})
+    setMenuPos({ rightPos: right, leftPos: left, topPos: top, bottomPos: bottom })
 
   }, [contextMenuData])
 
@@ -124,31 +124,32 @@ export default function CustomContextMenu() {
   function handleMouseDown(event) {
     if (!containerRef.current.contains(event.target)) {
       closeContextMenu();
-      
+
     }
-    setMenuPos({right:false,left:false,top:false,bottom:false})
+    setMenuPos({ right: false, left: false, top: false, bottom: false })
   }
+
 
   function handleAddToLibrary() {
     handleLikePlaylist(contextMenuData.customData.id)
     closeContextMenu();
   }
-  function handleRemovefromLibrary(){
+  function handleRemovefromLibrary() {
     const source = axios.CancelToken.source()
     let body
     if (login) {
-        body = {
-            tracks: [{uri:contextMenuData.customData.uri}]
-        }
+      body = {
+        tracks: [{ uri: contextMenuData.customData.uri }]
+      }
 
-        const request = deleteWithToken(`https://api.spotify.com/v1/playlists/${contextMenuData.playlist_id}/tracks`, token, source, body)
-        request().then(response => {
-            if (response.status === 200) {
-                console.log("deleted")
-            }else{
-                console.log(response)
-            }
-        })
+      const request = deleteWithToken(`https://api.spotify.com/v1/playlists/${contextMenuData.playlist_id}/tracks`, token, source, body)
+      request().then(response => {
+        if (response.status === 200) {
+          console.log("deleted")
+        } else {
+          console.log(response)
+        }
+      })
     }
     closeContextMenu()
   }
@@ -199,22 +200,31 @@ export default function CustomContextMenu() {
                 <button className='context-menu-item context-menu-item-button' onClick={handleLikedSongs}>Save to your Liked Songs</button>
               }
 
-              {user.id===contextMenuData.owner.id ?
+              {user.id === contextMenuData.owner.id ?
                 <button className='context-menu-item context-menu-item-button' onClick={handleRemovefromLibrary}>Remove from this playlist</button> :
                 null
               }
 
               <CustomMenuItem type="add-playlist" menuPos={menuPos} menuSize={menuSize} index={6} >
-              <span>Add to Playlist</span> <span> &#9658;</span>
-            </CustomMenuItem>
-            <hr></hr>
-            <CustomMenuItem type="share" menuPos={menuPos} menuSize={menuSize} index={7}>
-              <span>Share</span> <span> &#9658;</span>
-            </CustomMenuItem>
+                <span>Add to Playlist</span> <span> &#9658;</span>
+              </CustomMenuItem>
+              <hr></hr>
+              <CustomMenuItem type="share" menuPos={menuPos} menuSize={menuSize} index={7}>
+                <span>Share</span> <span> &#9658;</span>
+              </CustomMenuItem>
 
 
             </div> :
-            null
+            contextMenuData.type === "my-playlist" ?
+              <div className='context-menu-container'>
+                <button className='context-menu-item context-menu-item-button'>Open in Desktop app</button>
+                <Link className='context-menu-item context-menu-item-link' to={`/playlist/${contextMenuData.playlist_id}`} onClick={closeContextMenu}>Go to Playlist Radio</Link>
+                <button className='context-menu-item context-menu-item-button'>Add to Profile</button>
+                <hr></hr>
+                <button onClick={handleAddToLibrary} className='context-menu-item context-menu-item-button'>Delete</button>
+
+              </div> :
+              null
 
       }
 
