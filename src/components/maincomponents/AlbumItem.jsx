@@ -78,7 +78,7 @@ export default function AlbumItem(props) {
                         </div> :
                         <div style={{ width: "3em" }}></div>}
 
-                        <h5>{getDuration(props.data.duration_ms)}</h5>
+                        <h5>{getDuration(props.data.duration_ms).forTrack}</h5>
 
             </div>
 

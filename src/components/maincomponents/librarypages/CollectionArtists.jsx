@@ -37,7 +37,7 @@ export default function CollectionArtists() {
 
         return (
             <div className="main-content">
-                <div className="row-content">
+                <div style={{padding:"0.5em", display:"flex", flexWrap:"wrap"}}>
                     {artistElements}
                 </div>
             </div>

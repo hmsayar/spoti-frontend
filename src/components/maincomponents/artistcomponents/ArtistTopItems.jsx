@@ -8,7 +8,7 @@ export default function ArtistToptems({id}){
 
     useEffect(() => {
         let source = axios.CancelToken.source()
-        const endpoint = `https://api.spotify.com/v1/artists/${id}/top-tracks/`
+        const endpoint = `https://api.spotify.com/v1/artists/${id}/albums?offset=0&limit=50&include_groups=album,single,compilation,appears_on`
         const makeRequest = async () => {
             const cancelToken = source.token
             const config = {
@@ -31,6 +31,7 @@ export default function ArtistToptems({id}){
         makeRequest()
 
     }, [])
+    console.log(topItems)
 
     return(
         <div className="album-tracks-title" >

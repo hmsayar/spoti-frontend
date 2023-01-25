@@ -213,7 +213,6 @@ ul>li>button:hover {
   align-items: center;
   width: 100px;
   white-space: nowrap;
-  overflow:visible;
 
 }
 
@@ -280,6 +279,7 @@ ul>li>button:hover {
 .row-content {
   padding: 0.5em;
   display: flex;
+
 
   /* justify-content: space-evenly;
   flex-wrap: wrap;
@@ -427,7 +427,6 @@ ul>li>button:hover {
 .playlist-content {
   color: white;
   margin-bottom: 5rem;
-
 }
 
 .playlist-cover {
@@ -437,6 +436,10 @@ ul>li>button:hover {
     display: flex;
     overflow: hidden;
     align-items: flex-end;
+}
+
+.cover-info{
+  white-space: nowrap;
 }
 
 .cover-image {
@@ -528,8 +531,6 @@ ul>li>button:hover {
   grid-template-columns: 1fr 1fr 1fr auto;
   margin-top: 1.5rem;
   padding: 1.5rem 1.5rem 0 1.5rem;
-  /* position: sticky;
-  top:60px; */
 }
 
 .tracks-title-title {
@@ -558,10 +559,22 @@ ul>li>button:hover {
 
 .track-actions{
   display:flex;
+  align-items: center;
+  gap:30px
 }
-.track-actions-img{
-  margin-left: 2rem;
+
+.follow-btn{
+  background-color: rgba(0, 0, 0, 0);
+  color:white;
+  height: 33px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding:0 15px;
 }
+.follow-btn:hover{
+  border: 1px solid white;
+}
+
 .playlist-tracks-actions{
   z-index: 1;
   width: 100%;
@@ -583,35 +596,53 @@ ul>li>button:hover {
 .track-first {
   display: flex;
   align-items: center;
-
+  margin-right: 1rem;
+  overflow: hidden !important;
+  min-width: 200px;
 }
 
 .track-first-play-no{
-  width: 3em;
+  width: 2.5em;
 }
 
 .track-no {
   margin-right: 25px;
 }
 
+.song-artist{
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
 .track-link {
   text-decoration: none;
   color: white;
+}
+
+.track-name-overflow{
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
 
 .track-link:hover {
   text-decoration: underline;
 }
 
+.artist-link {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-decoration: none;
+  color: #989898;
+}
+.artist-link > h5 {
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
 .song-artists {
   display: flex;
   flex-direction: column;
 }
 
-.artist-link {
-  text-decoration: none;
-  color: #989898;
-}
 
 .track-date-link{
   color:#989898;
@@ -693,6 +724,7 @@ ul>li>button:hover {
   width: 40%;
   background-color:#181818;
   align-items: center;
+  padding:5px
 }
 
 .control-buttons{
@@ -1035,4 +1067,19 @@ margin:0;
 
 .footer-logo-container:hover{
   background: rgba(255, 255, 255, 0.5);
+}
+
+.artist-nav-item{
+  padding: 0.8em;
+  border-radius: 20px;
+  background-color: #232323;
+  margin:0.5em;
+}
+
+.artist-nav-item-active{
+  background-color: white;
+}
+
+.artist-nav-item-active > p {
+  color:black;
 }

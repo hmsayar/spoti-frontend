@@ -19,7 +19,7 @@ export default function CollectionPodcasts(){
     }else{
         return(
             <div className="main-content">
-                <div className="row-content">
+                <div style={{padding:"0.5em", display:"flex", flexWrap:"wrap"}}>
                     <h1>hello</h1>
                 </div>
             </div>

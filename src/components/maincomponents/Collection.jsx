@@ -47,8 +47,9 @@ export default function Collection() {
 
     return (
         <div className="playlist-content" onContextMenu={handleContextMenu}>
-            <div className="playlist-cover">
+            <div className="playlist-cover" style={{ backgroundColor: "#4200f5" }}>
                 <img className="cover-image" src={likedSong} />
+                <div className="cover-overlay"></div>
                 <div className="cover-texts">
                     <h4 className="cover-type">Playlist</h4>
                     <h1 className="cover-title">Liked Songs</h1>
@@ -60,11 +61,13 @@ export default function Collection() {
                 </div>
             </div>
 
-            <div className="track-list">
-                <div className="track-actions">
+            <div className="tracks-header">
+            <div className="tracks-header-overlay" style={{ backgroundColor: "#4200f5"}} />
+                <div className="playlist-tracks-actions">
+                    <div className="track-actions">
                     <PlayButton type="playlist" />
-                </div>
 
+                    </div>
                 <div className="tracks-title" >
                     <div className="tracks-title-title">
                         <h3 style={{ color: "#a9a9aa" }} className="title-first">#</h3>
@@ -76,6 +79,8 @@ export default function Collection() {
                 </div>
                 <hr></hr>
                 {trackElements}
+                </div>
+
             </div>
         </div>
     )

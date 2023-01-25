@@ -196,7 +196,7 @@ function WebPlayback(props) {
                             </svg>
                         </div>
                         <div className='progress-bar-container'>
-                            <div className='player-duration'>{getDuration(trackPosition)}</div>
+                            <div className='player-duration'>{getDuration(trackPosition).forTrack}</div>
                             <div className='progress-bar'>
                                 <input
                                     id="song-input-bar"
@@ -208,7 +208,7 @@ function WebPlayback(props) {
                                     style={{ backgroundSize: `${presentSongPosition}% 100%` }}
                                 />
                             </div>
-                            <div className='player-duration'>{getDuration(current_track.duration_ms)}</div>
+                            <div className='player-duration'>{getDuration(current_track.duration_ms).forTrack}</div>
                         </div>
                     </div>
 

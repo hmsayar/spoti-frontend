@@ -67,12 +67,12 @@ export default function TrackItem(props) {
                 <img className="track-img" src={props.data.track.album.images[0].url} width={40} height={40} />
                 <div className="song-artist">
                     <Link className="track-link" to={`/track/${props.data.track.id}`}>
-                        <h4>{props.data.track.name.length < 45 ? props.data.track.name : (props.data.track.name.substring(0, 45) + "...")}</h4>
+                        <h4 className="track-name-overflow">{props.data.track.name.length < 45 ? props.data.track.name : (props.data.track.name.substring(0, 45) + "...")}</h4>
                     </Link>
                     {props.data.track.artists.map((artist, i, arr) => {
                         return (
                             <Link key={artist.id} className="artist-link" to={`/artist/${artist.id}`}>
-                                {i + 1 === arr.length ? artist.name : artist.name + ", "}
+                                    {i + 1 === arr.length ? artist.name : artist.name + ", "}
                             </Link>
                         )
                     })}
@@ -113,7 +113,7 @@ export default function TrackItem(props) {
                         </div> :
                         <div style={{ width: "3em" }}></div>}
 
-                        <h5>{getDuration(props.data.track.duration_ms)}</h5>
+                        <h5>{getDuration(props.data.track.duration_ms).forTrack}</h5>
 
             </div>
 

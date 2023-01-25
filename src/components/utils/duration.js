@@ -4,5 +4,5 @@ export default function getDuration(ms){
     if(seconds<10){
        seconds = "0" + seconds
     }
-    return `${minutes}:${seconds}`
+    return {forCover:`${minutes} min ${seconds} sec`, forTrack:`${minutes}:${seconds}`}
 }

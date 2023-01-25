@@ -33,7 +33,7 @@ export default function TrackElement({track}){
         </div>
         <h4
             className="duration">
-            {getDuration(track.duration_ms)}
+            {getDuration(track.duration_ms).forTrack}
         </h4>
     </div>
     )

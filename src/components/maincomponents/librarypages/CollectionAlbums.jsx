@@ -29,7 +29,7 @@ export default function CollectionAlbums(){
         )
     })
 
-    console.log(albums)
+
 
 
     if(albums.items?.length === 0){
@@ -40,7 +40,7 @@ export default function CollectionAlbums(){
 
         return(
             <div className="main-content">
-                <div className="row-content">
+                <div style={{padding:"0.5em", display:"flex", flexWrap:"wrap"}}>
                     {albumElements}
                 </div>
             </div>

@@ -32,11 +32,15 @@ export default function UserTopItems() {
 
     return (
         <>
-            <h1 style={{ marginBottom: "2rem" }}>{getTime()}</h1>
+        <div className="main-content">
 
+            <h1 style={{ marginBottom: "2rem" }}>{getTime()}</h1>
+            
             <div className="top-items-container">
                 {topItems}
             </div>
+
+        </div>
         </>
 
     )
