@@ -60,7 +60,6 @@ export default function Artist() {
     },[artistData])
 
     function handleFollow(){
-        console.log("hellüüü")
         const source = axios.CancelToken.source()
         let body
         if (login) {

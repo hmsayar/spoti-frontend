@@ -33,6 +33,8 @@ export default function RelatedArtists({id}){
         makeRequest()
 
     }, [])
+
+    
     const artistElements = related.artists?.map(artist => {
         return(
             <ArtistElement key={artist.id} artist={artist} />
