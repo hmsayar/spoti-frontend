@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom"
 import axios from "axios"
 import AlbumItem from "./AlbumItem"
 import PlayButton from "./PlayButton"
+import duratioLogo from "../../images/time-line.png"
 
 export default function AlbumPage() {
 
@@ -40,9 +41,10 @@ export default function AlbumPage() {
 
     const albumElements = albumData.tracks?.items.map((item, i) => {
         return (
-            <AlbumItem key={item.id} data={item} index={i} />
+            <AlbumItem key={item.id} data={item} index={i} listUri={albumData.uri} />
         )
     })
+
 
     return (
         <div className="playlist-content">
@@ -62,14 +64,14 @@ export default function AlbumPage() {
                     </div>
                     <div className="track-list">
                         <div className="track-actions">
-                            <PlayButton type="playlist" />
+                            <PlayButton type="playlist" item={albumData.uri} />
                         </div>
-                        <div className="tracks-title" >
+                        <div className="album-tracks-title" >
                             <div className="tracks-title-title">
-                                <h3 className="title-first">#</h3>
-                                <h3>Title</h3>
+                                <h3 style={{color:"#a9a9aa"}} className="title-first">#</h3>
+                                <h3 style={{color:"#a9a9aa"}}>Title</h3>
                             </div>
-                            <h3>Duration</h3>
+                            <img src={duratioLogo} />
                         </div>
                         {albumElements}
                     </div>

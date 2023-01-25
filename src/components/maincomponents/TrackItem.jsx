@@ -11,6 +11,7 @@ import getDuration from "../utils/duration"
 import dateFormatter from "../utils/dateFormat"
 
 
+
 // const onContextStyle = {
 //     textDecoration: "underline"
 // }
@@ -26,7 +27,6 @@ export default function TrackItem(props) {
     // const [onContextLinkStyle, setOnContextLinkStyle] = useState(false)
 
     const { handleContextMenuData } = useContext(MenuContext);
-
 
     useEffect(() => {
         setIsLiked(likedSongs.some(liked => liked.track.id === props.data.track.id))
@@ -45,6 +45,7 @@ export default function TrackItem(props) {
             yPos: event.clientY
         });
     };
+
 
     return (
         <div

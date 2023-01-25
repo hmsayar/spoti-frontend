@@ -10,6 +10,7 @@ import { UserContext } from "../../context/userContext"
 import { TokenContext } from '../../context/tokenContext';
 import deleteWithToken from '../utils/deleteWithToken';
 import axios from 'axios';
+import putWithToken from '../utils/putWithToken';
 
 
 
@@ -141,7 +142,6 @@ export default function CustomContextMenu() {
       body = {
         tracks: [{ uri: contextMenuData.customData.uri }]
       }
-
       const request = deleteWithToken(`https://api.spotify.com/v1/playlists/${contextMenuData.playlist_id}/tracks`, token, source, body)
       request().then(response => {
         if (response.status === 200) {
@@ -157,6 +157,23 @@ export default function CustomContextMenu() {
   function handleLikedSongs() {
     handleLikeUnlike(contextMenuData.customData.id)
     closeContextMenu();
+  }
+
+  function addToQueue(){
+      const source = axios.CancelToken.source()
+      let body
+      if (login) {
+        body = {uri:contextMenuData.customData.uri}
+          const request = putWithToken(`https://api.spotify.com/v1/me/player/queue?uri=${contextMenuData.customData.uri}`, token, source, body, "POST")
+          request().then(response => {
+              if (response.status === 202) {
+                  console.log("added to queue")
+              } else {
+                  console.log(response)
+              }
+          })
+      }
+      closeContextMenu();
   }
 
 
@@ -188,7 +205,7 @@ export default function CustomContextMenu() {
           :
           contextMenuData.type === "track" ?
             <div className='context-menu-container'>
-              <button className='context-menu-item context-menu-item-button'>Add to Queue</button>
+              <button onClick={addToQueue} className='context-menu-item context-menu-item-button'>Add to Queue</button>
               <hr></hr>
               <Link className='context-menu-item context-menu-item-link' to={`/artist/${contextMenuData.customData.artists[0].id}`} onClick={closeContextMenu}>Go to Artist</Link>
               <Link className='context-menu-item context-menu-item-link' to={`/album/${contextMenuData.customData.album.id}`} onClick={closeContextMenu}>Go to Album</Link>

@@ -15,7 +15,7 @@ export default function UserTopItems() {
 
         const requestTopItems = async () => {
             const cancelSource = axios.CancelToken.source()
-            const requestItems = reqWithToken(`https://api.spotify.com/v1/me/top/artists`, token, cancelSource)
+            const requestItems = reqWithToken(`https://api.spotify.com/v1/me/top/artists?limit=6`, token, cancelSource)
             const topItems = await requestItems()
             setUserItems(topItems.data.items)
         }

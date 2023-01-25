@@ -4,6 +4,7 @@ import { MenuContext } from "../../context/contextMenuContext"
 import { PlaylistContext } from "../../context/playlistContext"
 import { LoginContext } from "../../context/loginContext"
 import { TokenContext } from "../../context/tokenContext"
+import { UserContext } from "../../context/userContext"
 
 import axios from "axios"
 import putWithToken from "../utils/putWithToken"
@@ -15,6 +16,7 @@ export default function CustomMenuItem({ children, type, menuPos, menuSize, inde
     const { myPlaylists } = useContext(PlaylistContext)
     const { login } = useContext(LoginContext)
     const { token } = useContext(TokenContext)
+    const { user } = useContext(UserContext)
 
 
     const positionRef = useRef(null)
@@ -127,6 +129,7 @@ export default function CustomMenuItem({ children, type, menuPos, menuSize, inde
                     {myPlaylists.map(pl => {
 
                         return (
+                            user.display_name === pl.owner.display_name &&
                             <button key={pl.id} onClick={() => addToPlaylist(pl.id)} className='context-menu-item context-menu-item-button'>
                                 {pl.name}
                             </button>

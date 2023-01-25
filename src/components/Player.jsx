@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import axios from 'axios';
 import putWithToken from './utils/putWithToken';
 import getDuration from './utils/duration';
@@ -16,6 +16,7 @@ function WebPlayback(props) {
     const [presentVolume, setPresentVolume] = useState()
     const [presentSongPosition, setPresentSongPosition] = useState()
     const [trackPosition, setTrackPosition] = useState()
+    const location = useLocation()
 
 
 
@@ -150,7 +151,7 @@ function WebPlayback(props) {
                 <div className="player-container">
 
                     <div className='player-song-img-info'>
-                        <img className="player-song-img" src={current_track.album.images[0].url} alt="" />
+                        <img className="player-song-img" src={current_track.album?.images[0].url} alt="" />
 
                         <div className='player-song-info'>
                             <Link className="track-link" to={`/track/${current_track.id}`}>
@@ -175,7 +176,7 @@ function WebPlayback(props) {
                                 <path className='player-nav' d="M8 11.333l10.223-6.815a.5.5 0 0 1 .777.416v14.132a.5.5 0 0 1-.777.416L8 12.667V19a1 1 0 0 1-2 0V5a1 1 0 1 1 2 0v6.333z" fill="rgba(186,186,186,1)" />
                             </svg>
 
-                            
+
                             <div className='play-btn-container'>
                                 {!is_paused ?
                                     <svg className='toggle-resume' onClick={() => { player.togglePlay() }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
@@ -214,6 +215,17 @@ function WebPlayback(props) {
 
 
                     <div className='player-right'>
+
+
+                        <Link to="/queue">
+
+                            <svg className={location.pathname === "/queue" ? "" : "queue-icon" } xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="none" d="M0 0h24v24H0z" />
+                                <path className='queue-icon-color' d="M17 4V2.068a.5.5 0 0 1 .82-.385l4.12 3.433a.5.5 0 0 1-.321.884H2V4h15zM2 18h20v2H2v-2zm0-7h20v2H2v-2z" fill={location.pathname === "/queue" ? "rgb(29,185,84)" : "rgba(120,120,120,1)" } />
+                            </svg>
+
+                        </Link>
+
 
                         {
                             presentVolume < 1 ?

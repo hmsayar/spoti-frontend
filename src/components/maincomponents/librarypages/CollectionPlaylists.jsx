@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { PlaylistContext } from "../../context/playlistContext"
-import { LikedSongsContext } from "../../context/likedSongsContext"
-import RowItem from "./RowItem"
-import PlayButton from "./PlayButton"
-import useHover from "../../hooks/useHover"
+import { PlaylistContext } from "../../../context/playlistContext"
+import { LikedSongsContext } from "../../../context/likedSongsContext"
+import RowItem from "../RowItem"
+import PlayButton from "../PlayButton"
+import useHover from "../../../hooks/useHover"
 
 export default function CollectionPlaylists() {
     const { myPlaylists } = useContext(PlaylistContext)

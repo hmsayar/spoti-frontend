@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom'
 import NavItem from "./sidebarcomponents/NavItem"
 
 import { MenuContext } from "../context/contextMenuContext"
+import { UserContext } from "../context/userContext"
 
 
 
@@ -32,17 +33,18 @@ export default function Sidebar() {
 
     const { login } = useContext(LoginContext)
     const { myPlaylists } = useContext(PlaylistContext)
+    const { user } = useContext(UserContext)
     
     const { handleContextMenuData } = useContext(MenuContext);
 
-
     function handleContextMenu(playlist,e){
         e.preventDefault()
+        let playlist_type = playlist.owner.display_name === user.display_name ? "my-playlist" : "playlist"
         handleContextMenuData({
             customData: playlist,
             owner: playlist.owner.display_name,
             playlist_id: playlist.id,
-            type: "my-playlist",
+            type: playlist_type,
             isVisible: true,
             xPos: e.clientX,
             yPos: e.clientY

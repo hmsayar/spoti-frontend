@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import ArtistToptems from "./ArtistTopItems";
 
 export default function Artist(){
 
@@ -53,7 +54,7 @@ export default function Artist(){
                     
                 </div>
                 <div className="track-list">
-                    <h1>Some artist infos</h1>
+                    <ArtistToptems id= {artistData.id} />
                 </div>
                 </>
             }
