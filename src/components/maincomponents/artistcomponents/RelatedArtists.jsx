@@ -32,7 +32,7 @@ export default function RelatedArtists({id}){
         }
         makeRequest()
 
-    }, [])
+    }, [id])
 
     
     const artistElements = related.artists?.map(artist => {

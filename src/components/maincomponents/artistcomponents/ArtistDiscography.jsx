@@ -32,7 +32,7 @@ export default function ArtistDiscography({ id }) {
         }
         makeRequest()
 
-    }, [selected])
+    }, [selected,id])
 
     const albumElements = artistAlbums.items?.map(album => {
         return (
