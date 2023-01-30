@@ -10,12 +10,11 @@ import { LikedSongsContextProvider } from "./context/likedSongsContext"
 import { PlaylistContextProvider } from "./context/playlistContext"
 import { MenuContextProvider } from './context/contextMenuContext'
 import CustomContextMenu from './components/maincomponents/CustomContextMenu'
-import { BrowserRouter as Router } from 'react-router-dom'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  <Router>
+  <HashRouter>
     <LoginContextProvider>
         <TokenContextProvider>
           <UserContextProvider>
@@ -30,5 +29,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           </UserContextProvider>
         </TokenContextProvider>
     </LoginContextProvider>
-  </Router>
+  </HashRouter>
 )
