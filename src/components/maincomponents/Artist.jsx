@@ -12,8 +12,8 @@ import RelatedArtists from "./artistcomponents/RelatedArtists";
 
 export default function Artist() {
 
-    const {token} = useContext(TokenContext)
-    const {login} = useContext(LoginContext)
+    const { token } = useContext(TokenContext)
+    const { login } = useContext(LoginContext)
 
     const { artistId } = useParams()
     const [artistData, setArtistData] = useState({})
@@ -37,6 +37,7 @@ export default function Artist() {
                 var result = await axios(config)
                 const artist = result.data
                 setArtistData(artist)
+                setLoading(false)
             } catch (error) {
                 if (axios.isCancel(error)) return
                 return error
@@ -46,32 +47,34 @@ export default function Artist() {
 
     }, [artistId])
 
-    useEffect(()=>{
-        if(Object.entries(artistData).length !== 0 ){
-            var cancelSource = axios.CancelToken.source()
-            const checkIsFollowed = async () => {
-                const requestIsFollowed = reqWithToken(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${artistData.id}`, token, cancelSource)
-                const _requestIsFollowed = await requestIsFollowed()
-                setIsFollow(_requestIsFollowed.data[0])
-                setLoading(false)
+    useEffect(() => {
+        if (login) {
+            if (Object.entries(artistData).length !== 0) {
+                var cancelSource = axios.CancelToken.source()
+                const checkIsFollowed = async () => {
+                    const requestIsFollowed = reqWithToken(`https://api.spotify.com/v1/me/following/contains?type=artist&ids=${artistData.id}`, token, cancelSource)
+                    const _requestIsFollowed = await requestIsFollowed()
+                    setIsFollow(_requestIsFollowed.data[0])
+                    setLoading(false)
+                }
+                checkIsFollowed()
             }
-            checkIsFollowed()
         }
-    },[artistData])
+    }, [artistData])
 
-    function handleFollow(){
+    function handleFollow() {
         const source = axios.CancelToken.source()
         let body
         if (login) {
             if (!isFollow) {
                 body = {
-                    ids:[artistData.id]
+                    ids: [artistData.id]
                 }
                 const request = putWithToken(`https://api.spotify.com/v1/me/following?type=artist&ids=${artistData.id}`, token, source, body)
                 request().then(response => {
                     if (response.status === 204) {
                         setIsFollow(true)
-                    }else{console.log(response)}
+                    } else { console.log(response) }
                 })
             } else if (isFollow) {
                 body = {}
@@ -85,12 +88,14 @@ export default function Artist() {
         }
     }
 
+    console.log(loading)
+
     return (
         <div className="playlist-content">
             {loading ?
                 null :
                 <>
-                    <div className="playlist-cover" style={{backgroundColor:"magenta"}}>
+                    <div className="playlist-cover" style={{ backgroundColor: "magenta" }}>
                         <img className="cover-image" src={artistData.images[1].url} />
                         <div className="cover-overlay"></div>
                         <div className="cover-texts">
@@ -102,13 +107,13 @@ export default function Artist() {
                         </div>
                     </div>
                     <div className="tracks-header">
-                        <div className="tracks-header-overlay" style={{ backgroundColor: "magenta"}} />
+                        <div className="tracks-header-overlay" style={{ backgroundColor: "magenta" }} />
                         <div className="playlist-tracks-actions">
                             <div className="track-actions">
                                 <PlayButton type="playlist" item={artistData.uri} />
                                 <button className="follow-btn" onClick={handleFollow}>
-                                    <p style={{fontSize:"0.9em", fontWeight:"bold"}}>
-                                    {isFollow ? "FOLLOWING" : "FOLLOW"}
+                                    <p style={{ fontSize: "0.9em", fontWeight: "bold" }}>
+                                        {isFollow ? "FOLLOWING" : "FOLLOW"}
                                     </p>
                                 </button>
                             </div>

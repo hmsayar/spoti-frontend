@@ -22,6 +22,25 @@ export default function Playlist({ playlistUriHeader }) {
     const { user } = useContext(UserContext)
     const [isLiked, setIsLiked] = useState(false)
     const { myPlaylists, handleLikePlaylist } = useContext(PlaylistContext)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    
+
+    //on resize adjust items visibility
+    useEffect(()=>{
+        function watchWidth() {
+            console.log("Setting up...")
+            setWindowWidth(window.innerWidth)
+        }
+        
+        window.addEventListener("resize", watchWidth)
+        
+        return function() {
+            console.log("cleaned")
+            window.removeEventListener("resize", watchWidth)
+        }
+    },[])
+
+
 
 
     useEffect(() => {
@@ -117,7 +136,7 @@ export default function Playlist({ playlistUriHeader }) {
                                 <div className="tracks-title" >
                                     <div className="tracks-title-title">
                                         <h3 style={{color:"#a9a9aa"}} className="title-first">#</h3>
-                                        <h3 style={{color:"#a9a9aa"}}>Title</h3>
+                                        <h3 style={{color:"#a9a9aa", minWidth:"200px"}}>Title</h3>
                                     </div>
                                     <h3 style={{color:"#a9a9aa"}}>Album</h3>
                                     <h3 style={{color:"#a9a9aa"}}>Date</h3>

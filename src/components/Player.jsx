@@ -151,7 +151,7 @@ function WebPlayback(props) {
                 <div className="player-container">
 
                     <div className='player-song-img-info'>
-                        <img className="player-song-img" src={current_track.album?.images[0].url} alt="" />
+                        <img className="player-song-img" src={current_track?.album?.images[0].url} alt="" />
 
                         <div className='player-song-info'>
                             <Link className="track-link" to={`/track/${current_track.id}`}>

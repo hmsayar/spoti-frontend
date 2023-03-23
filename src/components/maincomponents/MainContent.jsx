@@ -1,16 +1,20 @@
 import { Routes, Route } from "react-router-dom"
-import AlbumPage from "./AlbumPage"
-import Home from "./Home"
-import Playlist from "./Playlist"
-import SearchPage from "./SearchPage"
-import TrackPage from "./TrackPage"
-import Artist from "./Artist"
-import Collection from "./Collection"
-import CollectionPlaylists from "./librarypages/CollectionPlaylists"
-import CollectionArtists from "./librarypages/CollectionArtists"
-import CollectionAlbums from "./librarypages/CollectionAlbums"
-import CollectionPodcasts from "./librarypages/CollectionPodcasts"
-import QueuePage from "./QueuePage"
+import { lazy, Suspense} from "react"
+const AlbumPage = lazy(()=> import("./AlbumPage"))
+const Home = lazy(()=> import("./Home"))
+const Playlist = lazy(()=> import("./Playlist"))
+const SearchPage = lazy(()=> import("./SearchPage"))
+const TrackPage = lazy(()=> import("./TrackPage"))
+const Artist = lazy(()=> import("./Artist"))
+const Collection = lazy(()=> import("./Collection"))
+const CollectionPlaylists = lazy(()=> import("./librarypages/CollectionPlaylists"))
+const CollectionArtists = lazy(()=> import("./librarypages/CollectionArtists"))
+const CollectionAlbums = lazy(()=> import("./librarypages/CollectionAlbums"))
+const CollectionPodcasts = lazy(()=> import("./librarypages/CollectionPodcasts"))
+const QueuePage = lazy(()=> import("./QueuePage"))
+
+import Loading from "./Loading"
+
 
 
 
@@ -22,12 +26,11 @@ export default function MainContent({query, playlistUriHeader}) {
     return (
         <Routes>
             <Route exact path="/" element={<Home />} />
+            <Suspense fallback={<div>...</div>} />
             <Route path={`/search/`} element={<SearchPage q={query} />} />
             <Route path="/playlist/:playlistId" element={<Playlist playlistUriHeader={playlistUriHeader} />} />
             <Route path="/collection/tracks" element={<Collection /> } />
             <Route path="/queue" element={<QueuePage /> } />
-
-
             <Route path="/collection/playlists" element={<CollectionPlaylists />} />
             <Route path="/collection/artists" element={<CollectionArtists />} />
             <Route path="/collection/albums" element={<CollectionAlbums />} />
@@ -35,6 +38,7 @@ export default function MainContent({query, playlistUriHeader}) {
             <Route path="/track/:trackId" element={<TrackPage />} />
             <Route path="/album/:albumId" element={<AlbumPage />} />
             <Route path="/artist/:artistId" element={<Artist />} />
+            <Suspense fallback={<Loading/>} />
         </Routes>
     )
 }

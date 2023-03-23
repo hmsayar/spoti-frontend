@@ -4,7 +4,7 @@ import axios from "axios"
 import getLocale from "../utils/locale"
 import UserTopItems from "./UserTopItems"
 import { LoginContext } from "../../context/loginContext"
-import Loading from "./Loading"
+
 
 
 export default function Home() {
@@ -55,9 +55,8 @@ export default function Home() {
 
     return (
         <div className="main-content">
-            {
-                isLoading ?
-                    <Loading /> :
+            
+
                     <div className="home-main-content">
 
                         <>
@@ -71,7 +70,7 @@ export default function Home() {
 
                         </>
                     </div>
-            }
+            
 
         </div>
     )
