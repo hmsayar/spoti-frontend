@@ -14,6 +14,7 @@ const CollectionPodcasts = lazy(() => import("./librarypages/CollectionPodcasts"
 const QueuePage = lazy(() => import("./QueuePage"))
 
 import Loading from "./Loading"
+import DifferentLoading from "./loadingcomponents/DifferentLoading"
 
 
 
@@ -24,21 +25,62 @@ export default function MainContent({ query, playlistUriHeader }) {
 
 
     return (
-        <Suspense fallback={<div>...</div>} >
+
+        <div className="main-content-div">
+
             <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route path={`/search/`} element={<SearchPage q={query} />} />
-                <Route path="/playlist/:playlistId" element={<Playlist playlistUriHeader={playlistUriHeader} />} />
-                <Route path="/collection/tracks" element={<Collection />} />
-                <Route path="/queue" element={<QueuePage />} />
-                <Route path="/collection/playlists" element={<CollectionPlaylists />} />
-                <Route path="/collection/artists" element={<CollectionArtists />} />
-                <Route path="/collection/albums" element={<CollectionAlbums />} />
-                <Route path="/collection/podcasts" element={<CollectionPodcasts />} />
-                <Route path="/track/:trackId" element={<TrackPage />} />
-                <Route path="/album/:albumId" element={<AlbumPage />} />
-                <Route path="/artist/:artistId" element={<Artist />} />
+                <Route exact path="/" element={
+                    <Suspense fallback={<Loading />}>
+                        <Home />
+                    </Suspense>
+                } />
+                <Route path={`/search/`} element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <SearchPage q={query} />
+                    </Suspense>
+                } />
+                <Route path="/playlist/:playlistId" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <Playlist playlistUriHeader={playlistUriHeader} />
+                    </Suspense>
+                } />
+                <Route path="/collection/tracks" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <Collection />
+                    </Suspense>
+                } />
+                <Route path="/queue" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <QueuePage />
+                    </Suspense>
+                } />
+                <Route path="/collection/playlists" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <CollectionPlaylists />
+                    </Suspense>} />
+                <Route path="/collection/artists" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <CollectionArtists />
+                    </Suspense>} />
+                <Route path="/collection/albums" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <CollectionAlbums />
+                    </Suspense>} />
+                <Route path="/collection/podcasts" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <CollectionPodcasts />
+                    </Suspense>} />
+                <Route path="/track/:trackId" element={<Suspense fallback={<DifferentLoading />}>
+                    <TrackPage />
+                </Suspense>} />
+                <Route path="/album/:albumId" element={
+                    <Suspense fallback={<DifferentLoading />}>
+                        <AlbumPage />
+                    </Suspense>} />
+                <Route path="/artist/:artistId" element={<Suspense fallback={<DifferentLoading />}>
+                    <Artist />
+                </Suspense>} />
             </Routes>
-        </Suspense>
+        </div>
     )
 }

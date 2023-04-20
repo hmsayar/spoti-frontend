@@ -10,6 +10,6 @@ const loadingStyle = {
 
 export default function LoadingText({textWidth, textHeight="20px"}) {
     return (
-        <div style={{...loadingStyle, width:textWidth, height:textHeight}} />
+        <div className="skeleton" style={{...loadingStyle, width:textWidth, height:textHeight}} />
     )
 }

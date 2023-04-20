@@ -4,6 +4,7 @@ import axios from "axios"
 import getLocale from "../utils/locale"
 import UserTopItems from "./UserTopItems"
 import { LoginContext } from "../../context/loginContext"
+import LoadingImg from "./loadingcomponents/LoadingImg"
 
 
 
@@ -57,8 +58,8 @@ export default function Home() {
         <div className="main-content">
             
 
-                    <div className="home-main-content">
-
+                    <div className="home-main-content" >
+                        {/* <LoadingImg style={{ height: "180px", width: "180px", backgroundColor: "rgba(94,94,94,1)", borderRadius: "10px" }}  /> */}
                         <>
                             {login ?
                                 <UserTopItems /> :

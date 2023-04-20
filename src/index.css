@@ -97,6 +97,28 @@ h4{
   overflow-x: hidden;
   margin-bottom: 6rem;
 }
+.main-content-div{
+  min-height:2000px;
+}
+
+.skeleton{
+  background: linear-gradient(	 
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(156, 147, 147, 0.5) 50%,
+      rgba(255, 255, 255, 0) 80%
+    ),
+    lightgray;
+  background-repeat: repeat-y;
+  background-size: 50px 500px;
+  background-position: 0 0;
+  animation: shine 1s infinite;
+}
+@keyframes shine {
+  to {
+    background-position: 100% 0, /* move highlight to right */ 0 0;
+  }
+}
 
 .sidebar-list{
   position: fixed;
