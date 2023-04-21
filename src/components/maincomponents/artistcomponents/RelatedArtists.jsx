@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ArtistElement from "../searchpagecomponents/ArtistElement";
 
-export default function RelatedArtists({id}){
+export default function RelatedArtists({ id }) {
 
-    const[related, setRelated] = useState({})
-    const[loading, setLoading] = useState(true)
+    const [related, setRelated] = useState({})
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
@@ -34,19 +34,18 @@ export default function RelatedArtists({id}){
 
     }, [id])
 
-    
+
     const artistElements = related.artists?.map(artist => {
-        return(
+        return (
             <ArtistElement key={artist.id} artist={artist} />
         )
-      })
+    })
 
-    return(
+    return (
         <>
-        <h2 style={{ marginBottom: "2rem", marginLeft: "1rem", fontSize: "1.7rem" }}>Fans also like</h2>
-        <div
-                className="row-content"
-                style={{ marginBottom: "5rem" }}
+            <h2 style={{ marginBottom: "2rem", marginLeft: "1rem", fontSize: "1.7rem" }}>Fans also like</h2>
+            <div
+                style={{ marginBottom: "5rem", display: "flex", gap: "10px" }}
             >
                 {artistElements}
             </div>

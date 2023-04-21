@@ -17,7 +17,7 @@ export default function ArtistsRow ({ data }) {
         <>
             <h1 className="tracks-search-title" style={{marginBottom:"2rem", marginLeft:"1.5rem"}} >Artists</h1>
             <div 
-            className="row-content" style={{marginBottom:"5rem"}}
+                style={{marginBottom:"5rem", display:"flex", gap:"10px"}}
             >
                 {artistElements}
             </div>

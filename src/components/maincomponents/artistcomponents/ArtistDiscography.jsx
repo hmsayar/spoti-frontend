@@ -53,8 +53,7 @@ export default function ArtistDiscography({ id }) {
                 </div>
             </div>
             <div
-                className="row-content"
-                style={{ marginBottom: "5rem" }}
+                style={{marginBottom:"5rem", display:"flex", gap:"10px"}}
             >
                 {albumElements}
             </div>

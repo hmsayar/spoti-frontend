@@ -16,8 +16,7 @@ export default function AlbumsRow({ data }) {
         <>
             <h1 style={{marginBottom:"2rem", marginLeft:"1.5rem"}}>Albums</h1>
             <div
-                className="row-content"
-                style={{marginBottom:"5rem"}}
+                style={{marginBottom:"5rem", display:"flex", gap:"10px"}}
             >
                 {albumElements}
             </div>
