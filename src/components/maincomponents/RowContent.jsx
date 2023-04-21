@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import RowItem from "./RowItem"
 
-export default function RowContent({ data }) {
+export default function RowContent({ data, columnCount }) {
 
     const [row, setRow] = useState([])
 
@@ -34,14 +34,14 @@ export default function RowContent({ data }) {
 
     }, [])
 
-    const rowItems = row.map(item => {
-        return (
-                <RowItem key={item.id} data={item} />
-        )
+    const rowItems = row.map((item,i) => {
+            if(i<columnCount){
+               return <RowItem key={item.id} data={item} />
+            }
     })
 
     return (
-        <div className="row-content">
+        <div style={{"--column-count": `${columnCount}`}} className="row-content">
             
             {rowItems}
 

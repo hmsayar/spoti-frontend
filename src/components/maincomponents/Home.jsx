@@ -13,6 +13,8 @@ export default function Home() {
     const [allData, setAllData] = useState([])
     const { login } = useContext(LoginContext)
     const [isLoading, setIsLoading] = useState(true)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const [columnCount, setColumnCount] = useState(getColumnCount(window.innerWidth))
 
 
     useEffect(() => {
@@ -40,19 +42,35 @@ export default function Home() {
         }
         makeRequest()
 
+
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+          };
+      
+          window.addEventListener('resize', handleResize);
+      
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
+
     }, [])
+
+    useEffect(() => {
+        setColumnCount(getColumnCount(screenWidth));
+      }, [screenWidth]);
+    
 
     const rowElements = allData.map(item => {
         return (
 
             <div key={item.id}>
                 <h1 className="row-title">{item.name}</h1>
-                <RowContent data={item} />
+                <RowContent data={item} columnCount={columnCount} />
             </div>
         )
     })
 
-
+    console.log(columnCount)
 
     return (
         <div className="main-content">
@@ -75,4 +93,23 @@ export default function Home() {
 
         </div>
     )
+}
+
+
+function getColumnCount(width){
+    if (width <= 950) {
+        return 2;
+      } else if (width <= 1120) {
+        return 3;
+      } else if (width <=1300) {
+        return 4;
+      } else if (width <=1540) {
+        return 5;
+      } else if(width <= 1750) {
+        return 6;
+      }else if(width <= 1950) {
+        return 7;
+      }else{
+        return 8;
+      }
 }
