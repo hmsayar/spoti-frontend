@@ -297,6 +297,9 @@ ul>li>button:hover {
   border-radius: 10px;
   margin: 0.75em;
 }
+.loading-row-content{
+  display:flex;
+}
 
 .row-content {
   padding: 0.5em;

@@ -16,7 +16,7 @@ export default function Loading() {
                 <LoadingTopItem />
             </div>
             <LoadingText textWidth="20%" textHeight="25px" />
-            <div className="row-content">
+            <div className="loading-row-content">
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
@@ -24,7 +24,7 @@ export default function Loading() {
                 <LoadingPlaylistItem />
             </div>
             <LoadingText textWidth="20%" textHeight="25px" />
-            <div className="row-content">
+            <div className="loading-row-content">
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
@@ -32,7 +32,7 @@ export default function Loading() {
                 <LoadingPlaylistItem />
             </div>
             <LoadingText textWidth="20%" textHeight="25px" />
-            <div className="row-content">
+            <div className="loading-row-content">
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
