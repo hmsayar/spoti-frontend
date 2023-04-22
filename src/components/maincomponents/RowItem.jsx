@@ -48,7 +48,7 @@ export default function RowItem({ data }) {
 
             {isHovered && data.tracks.total > 0 && <PlayButton type="home" item={data.uri} />}
             <Link to={`/playlist/${data.id}`} style={linkStyle}>
-                <img className="playlist-item-img" src={data.images.length > 0 ? data.images[0].url : defaultImg} width={180} height={180} />
+                <img loading="lazy" className="playlist-item-img" src={data.images.length > 0 ? data.images[0].url : defaultImg} />
                 <h3> {data.name}</h3>
                 {
                     data.description.length > 0 ?

@@ -70,7 +70,6 @@ export default function Home() {
         )
     })
 
-    console.log(columnCount)
 
     return (
         <div className="main-content">
