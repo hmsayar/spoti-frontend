@@ -178,6 +178,7 @@ function WebPlayback(props) {
 
 
                             <div className='play-btn-container'>
+                                <a href="https://github.com/hmsayar" className="footer-links-dot">.</a>
                                 {!is_paused ?
                                     <svg className='toggle-resume' onClick={() => { player.togglePlay() }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
                                         <path fill="none" d="M0 0h24v24H0z" />
@@ -219,9 +220,9 @@ function WebPlayback(props) {
 
                         <Link to="/queue">
 
-                            <svg className={location.pathname === "/queue" ? "" : "queue-icon" } xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                            <svg className={location.pathname === "/queue" ? "" : "queue-icon"} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
                                 <path fill="none" d="M0 0h24v24H0z" />
-                                <path className='queue-icon-color' d="M17 4V2.068a.5.5 0 0 1 .82-.385l4.12 3.433a.5.5 0 0 1-.321.884H2V4h15zM2 18h20v2H2v-2zm0-7h20v2H2v-2z" fill={location.pathname === "/queue" ? "rgb(29,185,84)" : "rgba(120,120,120,1)" } />
+                                <path className='queue-icon-color' d="M17 4V2.068a.5.5 0 0 1 .82-.385l4.12 3.433a.5.5 0 0 1-.321.884H2V4h15zM2 18h20v2H2v-2zm0-7h20v2H2v-2z" fill={location.pathname === "/queue" ? "rgb(29,185,84)" : "rgba(120,120,120,1)"} />
                             </svg>
 
                         </Link>

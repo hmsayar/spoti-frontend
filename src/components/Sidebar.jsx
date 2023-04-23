@@ -57,7 +57,7 @@ export default function Sidebar() {
             <a href="/">
                 <img src={spotiLogo} className="spoti-logo" width={140} height={40} />
             </a>
-
+            
             <div className="nav-list">
                 <NavItem
                     ext="/"
