@@ -15,7 +15,7 @@ export default function ArtistElement({ artist }) {
 
     return (
 
-        <div className="playlist-item"
+        <div className="collection-items"
             onMouseEnter={handleHover}
             onMouseLeave={handleHover}>
             {isHovered && <PlayButton type="home" item={artist.uri} />}

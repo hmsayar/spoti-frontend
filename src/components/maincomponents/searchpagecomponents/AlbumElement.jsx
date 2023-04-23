@@ -13,7 +13,7 @@ export default function AlbumElement({data}) {
 
     return (
 
-        <div className="playlist-item"
+        <div className="collection-items"
             onMouseEnter={handleHover}
             onMouseLeave={handleHover}>
             {isHovered && <PlayButton type="home" item={data.uri} />}
