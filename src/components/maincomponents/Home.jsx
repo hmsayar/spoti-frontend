@@ -4,7 +4,7 @@ import axios from "axios"
 import getLocale from "../utils/locale"
 import UserTopItems from "./UserTopItems"
 import { LoginContext } from "../../context/loginContext"
-import LoadingImg from "./loadingcomponents/LoadingImg"
+import useResize from "../../hooks/useResize"
 
 
 
@@ -13,9 +13,8 @@ export default function Home() {
     const [allData, setAllData] = useState([])
     const { login } = useContext(LoginContext)
     const [isLoading, setIsLoading] = useState(true)
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [columnCount, setColumnCount] = useState(getColumnCount(window.innerWidth))
-
+    const [screenWidth] = useResize()
 
     useEffect(() => {
         let source = axios.CancelToken.source()
@@ -41,17 +40,6 @@ export default function Home() {
 
         }
         makeRequest()
-
-
-        const handleResize = () => {
-            setScreenWidth(window.innerWidth);
-          };
-      
-          window.addEventListener('resize', handleResize);
-      
-          return () => {
-            window.removeEventListener('resize', handleResize);
-          };
 
     }, [])
 

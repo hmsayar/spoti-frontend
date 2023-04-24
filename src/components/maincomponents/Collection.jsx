@@ -10,12 +10,14 @@ import { TokenContext } from "../../context/tokenContext"
 import reqWithToken from "../utils/reqWithToken"
 import Axios from "axios"
 import duratioLogo from "../../images/time-line.png"
+import useResize from "../../hooks/useResize"
 
 
 export default function Collection() {
     const { user } = useContext(UserContext)
     const { likedSongs, handleLikedSongs } = useContext(LikedSongsContext)
     const { token } = useContext(TokenContext)
+    const [screenWidth] = useResize()
 
     useEffect(() => {
 
@@ -36,7 +38,7 @@ export default function Collection() {
 
     const trackElements = likedSongs.map((item, i) => {
         return (
-            <TrackItem key={item.track.id} data={{ ...item, added_by: user.id }} index={i} />
+            <TrackItem key={item.track.id} data={{ ...item, added_by: user.id }} index={i} windowWidth={screenWidth} />
         )
     })
 
@@ -62,23 +64,23 @@ export default function Collection() {
             </div>
 
             <div className="tracks-header">
-            <div className="tracks-header-overlay" style={{ backgroundColor: "#4200f5"}} />
+                <div className="tracks-header-overlay" style={{ backgroundColor: "#4200f5" }} />
                 <div className="playlist-tracks-actions">
                     <div className="track-actions">
-                    <PlayButton type="playlist" />
+                        <PlayButton type="playlist" />
 
                     </div>
-                <div className="tracks-title" >
-                    <div className="tracks-title-title">
-                        <h3 style={{ color: "#a9a9aa" }} className="title-first">#</h3>
-                        <h3 style={{ color: "#a9a9aa" }}>Title</h3>
+                    <div className="tracks-title" >
+                        <div className="tracks-title-title">
+                            <h3 style={{ color: "#a9a9aa" }} className="title-first">#</h3>
+                            <h3 style={{ color: "#a9a9aa" }}>Title</h3>
+                        </div>
+                        {screenWidth > 820 && <h3 style={{ color: "#a9a9aa" }}>Album</h3>}
+                        {screenWidth > 1070 && <h3 style={{ color: "#a9a9aa" }}>Date</h3>}
+                        <img src={duratioLogo} />
                     </div>
-                    <h3 style={{ color: "#a9a9aa" }}>Album</h3>
-                    <h3 style={{ color: "#a9a9aa" }}>Date</h3>
-                    <img src={duratioLogo} />
-                </div>
-                <hr></hr>
-                {trackElements}
+                    <hr></hr>
+                    {trackElements}
                 </div>
 
             </div>

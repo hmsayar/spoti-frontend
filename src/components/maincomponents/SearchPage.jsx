@@ -39,7 +39,6 @@ export default function SearchPage({ q }) {
         }
     }, [q])
 
-    console.log(searchData)
 
 
 

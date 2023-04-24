@@ -72,7 +72,7 @@ export default function TrackItem(props) {
                     {props.data.track.artists.map((artist, i, arr) => {
                         return (
                             <Link key={artist.id} className="artist-link" to={`/artist/${artist.id}`}>
-                                    {i + 1 === arr.length ? artist.name : artist.name + ", "}
+                                {i + 1 === arr.length ? artist.name : artist.name + ", "}
                             </Link>
                         )
                     })}
@@ -80,12 +80,12 @@ export default function TrackItem(props) {
                 </div>
 
             </div>
-            <Link className="artist-link" to={`/album/${props.data.track.album.id}`}>
+            {props.windowWidth > 820 && <Link className="artist-link" to={`/album/${props.data.track.album.id}`}>
                 <h5>{props.data.track.album.name}</h5>
-            </Link>
-            <h5 className="track-date-link">{dateFormatter(props.data.added_at)}</h5>
+            </Link>}
+            {props.windowWidth > 1070 && <h5 className="track-date-link">{dateFormatter(props.data.added_at)}</h5>}
 
-            <div style={{ display: "flex", alignItems:"center"}}>
+            <div style={{ display: "flex", alignItems: "center" }}>
                 {(login && isLiked) ?
                     <div style={{ width: "3em" }}>
 
@@ -113,7 +113,7 @@ export default function TrackItem(props) {
                         </div> :
                         <div style={{ width: "3em" }}></div>}
 
-                        <h5>{getDuration(props.data.track.duration_ms).forTrack}</h5>
+                <h5>{getDuration(props.data.track.duration_ms).forTrack}</h5>
 
             </div>
 

@@ -11,6 +11,7 @@ import { UserContext } from "../../context/userContext"
 import { PlaylistContext } from "../../context/playlistContext"
 import EmptyPlaylist from "./EmptyPlaylist"
 import duratioLogo from "../../images/time-line.png"
+import useResize from "../../hooks/useResize"
 
 
 export default function Playlist({ playlistUriHeader }) {
@@ -22,24 +23,7 @@ export default function Playlist({ playlistUriHeader }) {
     const { user } = useContext(UserContext)
     const [isLiked, setIsLiked] = useState(false)
     const { myPlaylists, handleLikePlaylist } = useContext(PlaylistContext)
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    
-
-    //on resize adjust items visibility
-    useEffect(()=>{
-        function watchWidth() {
-            console.log("Setting up...")
-            setWindowWidth(window.innerWidth)
-        }
-        
-        window.addEventListener("resize", watchWidth)
-        
-        return function() {
-            console.log("cleaned")
-            window.removeEventListener("resize", watchWidth)
-        }
-    },[])
-
+    const [screenWidth] = useResize()
 
 
 
@@ -85,7 +69,7 @@ export default function Playlist({ playlistUriHeader }) {
 
     const trackElements = playlist.tracks?.items.map((item, i) => {
         return (
-            <TrackItem playlistId={playlist.id} key={item.id} data={item} index={i} listUri={playlist.uri} />
+            <TrackItem playlistId={playlist.id} key={item.id} data={item} index={i} listUri={playlist.uri} windowWidth={screenWidth} />
         )
     })
 
@@ -138,8 +122,8 @@ export default function Playlist({ playlistUriHeader }) {
                                         <h3 style={{color:"#a9a9aa"}} className="title-first">#</h3>
                                         <h3 style={{color:"#a9a9aa", minWidth:"200px"}}>Title</h3>
                                     </div>
-                                    <h3 style={{color:"#a9a9aa"}}>Album</h3>
-                                    <h3 style={{color:"#a9a9aa"}}>Date</h3>
+                                    {screenWidth>820 && <h3 style={{color:"#a9a9aa"}}>Album</h3>}
+                                    {screenWidth>1070 &&  <h3 style={{color:"#a9a9aa"}}>Date</h3>}
                                     <img src={duratioLogo} />
                                 </div>
                                 <hr></hr>
