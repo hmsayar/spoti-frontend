@@ -1,4 +1,4 @@
-# Spotify Frontend Clone
+# spoti-frontend
 
 A React-based frontend clone of Spotify, replicating most of its features and utilizing the Spotify API and Web Playback SDK.
 
@@ -21,7 +21,7 @@ Currently, I am working on an updated version of the project, utilizing Next.js 
 
 ## Installation and Setup
 
-1. Set up the [Spotify Backend](https://github.com/hmsayar/spoti-backend.git) following the instructions in its README.
+1. Set up the [spoti-backend](https://github.com/hmsayar/spoti-backend.git) following the instructions in its README.
 
 2. Clone the repository: https://github.com/hmsayar/spoti-frontend.git
 
