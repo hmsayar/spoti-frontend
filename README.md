@@ -47,4 +47,4 @@ Currently, I am working on an updated version of the project, utilizing Next.js 
 
 ## Note
 
-While developing this project, my primary focus was on learning and exploring React.js, which led to implementing a wide range of features. As a result, some parts of the codebase may not be optimally implemented. I see this project as a representation of my learning journey, and I'm continually working on refining the codebase and improving my skills.
+While developing this project, my primary focus was on learning and exploring React.js, which led to implementing a wide range of features. As a result, some parts of the codebase may not be optimally implemented. I'm continually working on refining the codebase and improving my skills.
