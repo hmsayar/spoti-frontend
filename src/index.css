@@ -260,9 +260,6 @@ ul>li>button:hover {
   z-index: 10;
 }
 
-
-
-
 .search-page {
   margin-top: 8rem;
   margin-bottom: 8rem;
@@ -285,8 +282,6 @@ ul>li>button:hover {
 .search-style:focus{
   outline: none;
 }
-
-
 
 .search-page {
   display: grid;
