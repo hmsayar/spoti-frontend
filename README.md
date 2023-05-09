@@ -9,7 +9,7 @@ The primary motivation behind this project was to learn React.js by implementing
 ## Live Demo
 
 You can try the live demo here: https://spoti-frontend.onrender.com/
-For access to authenticated features, please send me an email so I can add your user information to the project.
+**For access to authenticated features, please send me an email so I can add your user information to the project.**
 
 ## Upcoming Version
 
