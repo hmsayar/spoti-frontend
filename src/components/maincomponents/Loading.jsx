@@ -6,7 +6,7 @@ import LoadingText from "./loadingcomponents/LoadingText"
 
 export default function Loading() {
     return (
-        <>
+        <div style={{"marginTop":"10em"}}>
             <div className="loading-top-item-container">
                 <LoadingTopItem />
                 <LoadingTopItem />
@@ -39,6 +39,6 @@ export default function Loading() {
                 <LoadingPlaylistItem />
                 <LoadingPlaylistItem />
             </div>
-        </>
+        </div>
     )
 }

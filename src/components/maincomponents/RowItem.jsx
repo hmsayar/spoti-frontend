@@ -4,6 +4,8 @@ import useHover from "../../hooks/useHover"
 import { Link } from "react-router-dom"
 import { MenuContext } from "../../context/contextMenuContext"
 import defaultImg from "../../images/empty-playlist-image.png"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 
@@ -33,8 +35,6 @@ export default function RowItem({ data }) {
         });
     };
 
-
-
     return (
 
 
@@ -48,14 +48,18 @@ export default function RowItem({ data }) {
 
             {isHovered && data.tracks.total > 0 && <PlayButton type="home" item={data.uri} />}
             <Link to={`/playlist/${data.id}`} style={linkStyle}>
-                <img loading="lazy" className="playlist-item-img" src={data.images.length > 0 ? data.images[0].url : defaultImg} />
-                <h3> {data.name}</h3>
-                {
-                    data.description.length > 0 ?
-                        <p>{data.description.length < 50 ? data.description : data.description.substring(0, 45) + "..."}</p> :
-                        <p>By {data.owner.display_name}</p>
-                }
-            </Link>
+    <LazyLoadImage
+        effect="blur"
+        className="playlist-item-img"
+        src={data.images.length > 0 ? data.images[0].url : defaultImg} 
+    />
+    <h3> {data.name}</h3>
+    {
+        data.description.length > 0 ?
+            <p>{data.description.length < 50 ? data.description : data.description.substring(0, 45) + "..."}</p> :
+            <p>By {data.owner.display_name}</p>
+    }
+</Link>
 
         </div>
 
