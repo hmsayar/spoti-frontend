@@ -392,9 +392,6 @@ ul>li>button:hover {
 }
 
 
-
-
-
 .play-button-home {
   visibility: hidden;
   animation: 300ms fadeIn;
@@ -408,6 +405,7 @@ ul>li>button:hover {
   padding: 0.5rem;
   font-size: 1.5rem;
   box-shadow: 0px 5px 5px 0px #000000;
+  z-index: 1;
 }
 @keyframes fadeIn {
   0%{
