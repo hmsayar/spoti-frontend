@@ -55,7 +55,7 @@ export default function Sidebar() {
     return (
         <div className="sidebar">
             <a href="/">
-                <img src={spotiLogo} className="spoti-logo" width={140} height={40} />
+                <img src={spotiLogo} className="spoti-logo" width={140} height={40} alt="logo" />
             </a>
             
             <div className="nav-list">

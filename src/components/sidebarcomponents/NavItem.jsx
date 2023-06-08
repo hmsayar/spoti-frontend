@@ -22,7 +22,7 @@ export default function NavItem({ ext, logo, name, cssClass,style, isSelected, c
         <div onContextMenu={contextMenu} style={style} className="nav-item-container" onClick={createPlaylist}>
             <Link to={ext} style={linkStyle}>
                 <div className="nav-item">
-                    {logo && <img className="nav-item-logo" src={logo} width={24} height={24} />}
+                    {logo && <img className="nav-item-logo" src={logo} width={24} height={24} alt="sidebar-logo" />}
                     <h4 style={isSelected ? {color:"white"}: null} className={cssClass}>{name}</h4>
                 </div>
             </Link>

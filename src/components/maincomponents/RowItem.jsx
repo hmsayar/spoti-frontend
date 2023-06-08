@@ -35,9 +35,9 @@ export default function RowItem({ data }) {
         });
     };
 
+    
+
     return (
-
-
         <div
             className="playlist-item"
             onMouseEnter={handleHover}
@@ -52,8 +52,9 @@ export default function RowItem({ data }) {
                     effect="blur"
                     className="playlist-item-img"
                     src={data.images.length > 0 ? data.images[0].url : defaultImg}
+                    alt={data.description}
                 />
-                <h3> {data.name}</h3>
+                <h2> {data.name}</h2>
                 {
                     data.description.length > 0 ?
                         <p>{data.description.length < 50 ? data.description : data.description.substring(0, 45) + "..."}</p> :
